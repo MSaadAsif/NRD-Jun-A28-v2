@@ -68,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -321,7 +292,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td><strong>Cardiac</strong></td>
-<td>Atrial fibrillation/flutter <code>I48</code>; cardiac arrest <code>I46</code>; cardiogenic shock <code>R57.0</code>; myocardial infarction <code>I21</code>, <code>I22</code>; mechanical circulatory support PCS <code>5A02</code>, <code>5A15</code></td>
+<td>Atrial fibrillation/flutter <code>I48</code>; cardiac arrest <code>I46</code>; cardiogenic shock <code>R57.0</code>; postprocedural myocardial infarction <code>I97.190</code>, <code>I97.790</code>; mechanical circulatory support PCS <code>5A02</code>, <code>5A15</code></td>
 </tr>
 <tr class="even">
 <td><strong>Neurologic / thromboembolic</strong></td>
@@ -330,6 +301,8 @@ window.Quarto = {
 </tbody>
 </table>
 <p><strong>On present-on-admission status.</strong> The NRD does not carry present-on-admission indicators. The bleeding, infection and wound-complication families above (<code>T81.x</code>, <code>I97.x</code>, <code>J95.x</code>, <code>K91.x</code>, <code>N99.82</code>/<code>N99.84</code>, <code>G97.x</code>, <code>L76.x</code>, <code>M96.x</code>, <code>D78.x</code>) are <em>postprocedural by definition</em> and therefore identify a complication of care regardless of code position. The non-specific complications (sepsis, pneumonia, atrial fibrillation, acute kidney injury, stroke) are recorded on the CABG admission itself and so occurred during that stay, but for these the code cannot distinguish a condition present at admission from one arising after the operation. This is stated as a limitation.</p>
+<p><strong>Myocardial infarction.</strong> Acute myocardial infarction (<code>I21</code>, <code>I22</code>) coded anywhere on a CABG admission is, in the great majority of cases, the <em>indication</em> for the operation rather than a complication of it. It is therefore reported in Table 1 as an index-admission descriptor and is <strong>not</strong> a component of the cardiac complication composite. The complication itself is identified by <code>I97.190</code> (postprocedural myocardial infarction following cardiac surgery) and <code>I97.790</code> (postprocedural myocardial infarction during cardiac surgery), the two codes to which the ICD-10-CM Alphabetic Index directs “infarct, myocardium, associated with revascularization procedure”. Both are postprocedural by definition and require no present-on-admission field, and both have been valid since 1 October 2015, so they cover 2016–2017 in full. <code>I21.A1</code> and <code>I21.A9</code>, which would carry a type 2 or type 5 infarction, took effect on 1 October 2017 and exist for only the final quarter of this window; using them would make the rate a function of discharge date, so they are not used and their unavailability is declared. These code titles are non-specific (“other postprocedural cardiac functional disturbances”), and the resulting rate is correspondingly conservative.</p>
+<p><strong>Atrial fibrillation.</strong> <code>I48</code> is reported once, in Table 2, as a component of the cardiac complication composite. It was previously reported a second time in Table 1 as a comorbidity, from the identical flag and therefore with identical counts; that duplicate row has been removed. Because the NRD carries no present-on-admission indicator, <code>I48</code> on a CABG admission cannot be resolved into pre-existing versus new post-operative atrial fibrillation, and the Table 2 row is labelled accordingly.</p>
 </section>
 <section id="denominators" class="level3">
 <h3 class="anchored" data-anchor-id="denominators">Denominators</h3>
@@ -339,6 +312,7 @@ window.Quarto = {
 <li>The <strong>index cohort</strong> additionally excludes patients who died during the index admission (they are not at risk of readmission) and discharges without a full observable 30-day follow-up window inside the calendar year. All readmission figures are computed on this denominator.</li>
 </ul>
 <p>Excluding in-hospital deaths from the readmission denominator is what removes death as a competing risk, rather than leaving it to be modelled (reviewer #4, major comment 2). Cohort attrition at each step is reported in Table 0.</p>
+<p>Every column of every rate table names the cohort it is computed on in its own header, not only in the caption. Three automated checks run before the report is assembled and stop the render if they fail: the surgical cohort used by the survey design must equal the count reported in Table 0; the levels of any stratifying variable must sum back to the cohort being stratified; and no reported confidence interval may be narrower than the sample size printed beside it permits under simple random sampling, since a complex survey design can only ever widen an interval.</p>
 </section>
 <section id="outcomes" class="level3">
 <h3 class="anchored" data-anchor-id="outcomes">Outcomes</h3>
@@ -416,23 +390,23 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="table-1-baseline-and-operative-characteristics-by-30-day-readmission-status">Table 1 — Baseline and Operative Characteristics by 30-Day Readmission Status</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="pkhkqaqmla" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pkhkqaqmla table {
+<div id="ibmbxdveia" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ibmbxdveia table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pkhkqaqmla thead, #pkhkqaqmla tbody, #pkhkqaqmla tfoot, #pkhkqaqmla tr, #pkhkqaqmla td, #pkhkqaqmla th {
+#ibmbxdveia thead, #ibmbxdveia tbody, #ibmbxdveia tfoot, #ibmbxdveia tr, #ibmbxdveia td, #ibmbxdveia th {
   border-style: none;
 }
 
-#pkhkqaqmla p {
+#ibmbxdveia p {
   margin: 0;
   padding: 0;
 }
 
-#pkhkqaqmla .gt_table {
+#ibmbxdveia .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -458,12 +432,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_caption {
+#ibmbxdveia .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pkhkqaqmla .gt_title {
+#ibmbxdveia .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -475,7 +449,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#pkhkqaqmla .gt_subtitle {
+#ibmbxdveia .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -487,7 +461,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#pkhkqaqmla .gt_heading {
+#ibmbxdveia .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -499,13 +473,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_bottom_border {
+#ibmbxdveia .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_col_headings {
+#ibmbxdveia .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -520,7 +494,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_col_heading {
+#ibmbxdveia .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -540,7 +514,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#pkhkqaqmla .gt_column_spanner_outer {
+#ibmbxdveia .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -552,15 +526,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#pkhkqaqmla .gt_column_spanner_outer:first-child {
+#ibmbxdveia .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pkhkqaqmla .gt_column_spanner_outer:last-child {
+#ibmbxdveia .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pkhkqaqmla .gt_column_spanner {
+#ibmbxdveia .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -572,11 +546,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#pkhkqaqmla .gt_spanner_row {
+#ibmbxdveia .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pkhkqaqmla .gt_group_heading {
+#ibmbxdveia .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -602,7 +576,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#pkhkqaqmla .gt_empty_group_heading {
+#ibmbxdveia .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -617,15 +591,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#pkhkqaqmla .gt_from_md > :first-child {
+#ibmbxdveia .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pkhkqaqmla .gt_from_md > :last-child {
+#ibmbxdveia .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pkhkqaqmla .gt_row {
+#ibmbxdveia .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -644,7 +618,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#pkhkqaqmla .gt_stub {
+#ibmbxdveia .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -657,7 +631,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pkhkqaqmla .gt_stub_row_group {
+#ibmbxdveia .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -671,15 +645,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#pkhkqaqmla .gt_row_group_first td {
+#ibmbxdveia .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pkhkqaqmla .gt_row_group_first th {
+#ibmbxdveia .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pkhkqaqmla .gt_summary_row {
+#ibmbxdveia .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -689,16 +663,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pkhkqaqmla .gt_first_summary_row {
+#ibmbxdveia .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_first_summary_row.thick {
+#ibmbxdveia .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pkhkqaqmla .gt_last_summary_row {
+#ibmbxdveia .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -708,7 +682,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_grand_summary_row {
+#ibmbxdveia .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -718,7 +692,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pkhkqaqmla .gt_first_grand_summary_row {
+#ibmbxdveia .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -728,7 +702,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_last_grand_summary_row_top {
+#ibmbxdveia .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -738,11 +712,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_striped {
+#ibmbxdveia .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pkhkqaqmla .gt_table_body {
+#ibmbxdveia .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -751,7 +725,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_footnotes {
+#ibmbxdveia .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -765,7 +739,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_footnote {
+#ibmbxdveia .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -774,7 +748,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pkhkqaqmla .gt_sourcenotes {
+#ibmbxdveia .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -788,7 +762,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#pkhkqaqmla .gt_sourcenote {
+#ibmbxdveia .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -796,72 +770,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#pkhkqaqmla .gt_left {
+#ibmbxdveia .gt_left {
   text-align: left;
 }
 
-#pkhkqaqmla .gt_center {
+#ibmbxdveia .gt_center {
   text-align: center;
 }
 
-#pkhkqaqmla .gt_right {
+#ibmbxdveia .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pkhkqaqmla .gt_font_normal {
+#ibmbxdveia .gt_font_normal {
   font-weight: normal;
 }
 
-#pkhkqaqmla .gt_font_bold {
+#ibmbxdveia .gt_font_bold {
   font-weight: bold;
 }
 
-#pkhkqaqmla .gt_font_italic {
+#ibmbxdveia .gt_font_italic {
   font-style: italic;
 }
 
-#pkhkqaqmla .gt_super {
+#ibmbxdveia .gt_super {
   font-size: 65%;
 }
 
-#pkhkqaqmla .gt_footnote_marks {
+#ibmbxdveia .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pkhkqaqmla .gt_asterisk {
+#ibmbxdveia .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pkhkqaqmla .gt_indent_1 {
+#ibmbxdveia .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pkhkqaqmla .gt_indent_2 {
+#ibmbxdveia .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pkhkqaqmla .gt_indent_3 {
+#ibmbxdveia .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pkhkqaqmla .gt_indent_4 {
+#ibmbxdveia .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pkhkqaqmla .gt_indent_5 {
+#ibmbxdveia .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pkhkqaqmla .katex-display {
+#ibmbxdveia .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pkhkqaqmla div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ibmbxdveia div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1391,10 +1365,10 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Atrial Fibrillation / Flutter</td>
-<td class="gt_row gt_center" headers="stat_0">38,930 (36.3%)</td>
-<td class="gt_row gt_center" headers="stat_1">32,712 (35.1%)</td>
-<td class="gt_row gt_center" headers="stat_2">6,218 (44.0%)</td>
+<td class="gt_row gt_left" headers="label">Acute Myocardial Infarction Coded on the Index Admission</td>
+<td class="gt_row gt_center" headers="stat_0">36,197 (33.7%)</td>
+<td class="gt_row gt_center" headers="stat_1">31,085 (33.3%)</td>
+<td class="gt_row gt_center" headers="stat_2">5,112 (36.1%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -1486,23 +1460,23 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="table-2-index-hospitalization-outcomes-and-complications">Table 2 — Index Hospitalization Outcomes and Complications</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="shybixrleu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#shybixrleu table {
+<div id="zeyxyeuxke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zeyxyeuxke table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#shybixrleu thead, #shybixrleu tbody, #shybixrleu tfoot, #shybixrleu tr, #shybixrleu td, #shybixrleu th {
+#zeyxyeuxke thead, #zeyxyeuxke tbody, #zeyxyeuxke tfoot, #zeyxyeuxke tr, #zeyxyeuxke td, #zeyxyeuxke th {
   border-style: none;
 }
 
-#shybixrleu p {
+#zeyxyeuxke p {
   margin: 0;
   padding: 0;
 }
 
-#shybixrleu .gt_table {
+#zeyxyeuxke .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1528,12 +1502,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#shybixrleu .gt_caption {
+#zeyxyeuxke .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#shybixrleu .gt_title {
+#zeyxyeuxke .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1545,7 +1519,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#shybixrleu .gt_subtitle {
+#zeyxyeuxke .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1557,7 +1531,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#shybixrleu .gt_heading {
+#zeyxyeuxke .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1569,13 +1543,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#shybixrleu .gt_bottom_border {
+#zeyxyeuxke .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#shybixrleu .gt_col_headings {
+#zeyxyeuxke .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1590,7 +1564,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#shybixrleu .gt_col_heading {
+#zeyxyeuxke .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1610,7 +1584,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#shybixrleu .gt_column_spanner_outer {
+#zeyxyeuxke .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1622,15 +1596,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#shybixrleu .gt_column_spanner_outer:first-child {
+#zeyxyeuxke .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#shybixrleu .gt_column_spanner_outer:last-child {
+#zeyxyeuxke .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#shybixrleu .gt_column_spanner {
+#zeyxyeuxke .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1642,11 +1616,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#shybixrleu .gt_spanner_row {
+#zeyxyeuxke .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#shybixrleu .gt_group_heading {
+#zeyxyeuxke .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1672,7 +1646,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#shybixrleu .gt_empty_group_heading {
+#zeyxyeuxke .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1687,15 +1661,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#shybixrleu .gt_from_md > :first-child {
+#zeyxyeuxke .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#shybixrleu .gt_from_md > :last-child {
+#zeyxyeuxke .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#shybixrleu .gt_row {
+#zeyxyeuxke .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1714,7 +1688,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#shybixrleu .gt_stub {
+#zeyxyeuxke .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1727,7 +1701,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#shybixrleu .gt_stub_row_group {
+#zeyxyeuxke .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1741,15 +1715,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#shybixrleu .gt_row_group_first td {
+#zeyxyeuxke .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#shybixrleu .gt_row_group_first th {
+#zeyxyeuxke .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#shybixrleu .gt_summary_row {
+#zeyxyeuxke .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1759,16 +1733,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#shybixrleu .gt_first_summary_row {
+#zeyxyeuxke .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#shybixrleu .gt_first_summary_row.thick {
+#zeyxyeuxke .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#shybixrleu .gt_last_summary_row {
+#zeyxyeuxke .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1778,7 +1752,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#shybixrleu .gt_grand_summary_row {
+#zeyxyeuxke .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1788,7 +1762,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#shybixrleu .gt_first_grand_summary_row {
+#zeyxyeuxke .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1798,7 +1772,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#shybixrleu .gt_last_grand_summary_row_top {
+#zeyxyeuxke .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1808,11 +1782,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#shybixrleu .gt_striped {
+#zeyxyeuxke .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#shybixrleu .gt_table_body {
+#zeyxyeuxke .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1821,7 +1795,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#shybixrleu .gt_footnotes {
+#zeyxyeuxke .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1835,7 +1809,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#shybixrleu .gt_footnote {
+#zeyxyeuxke .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1844,7 +1818,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#shybixrleu .gt_sourcenotes {
+#zeyxyeuxke .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1858,7 +1832,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#shybixrleu .gt_sourcenote {
+#zeyxyeuxke .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1866,72 +1840,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#shybixrleu .gt_left {
+#zeyxyeuxke .gt_left {
   text-align: left;
 }
 
-#shybixrleu .gt_center {
+#zeyxyeuxke .gt_center {
   text-align: center;
 }
 
-#shybixrleu .gt_right {
+#zeyxyeuxke .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#shybixrleu .gt_font_normal {
+#zeyxyeuxke .gt_font_normal {
   font-weight: normal;
 }
 
-#shybixrleu .gt_font_bold {
+#zeyxyeuxke .gt_font_bold {
   font-weight: bold;
 }
 
-#shybixrleu .gt_font_italic {
+#zeyxyeuxke .gt_font_italic {
   font-style: italic;
 }
 
-#shybixrleu .gt_super {
+#zeyxyeuxke .gt_super {
   font-size: 65%;
 }
 
-#shybixrleu .gt_footnote_marks {
+#zeyxyeuxke .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#shybixrleu .gt_asterisk {
+#zeyxyeuxke .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#shybixrleu .gt_indent_1 {
+#zeyxyeuxke .gt_indent_1 {
   text-indent: 5px;
 }
 
-#shybixrleu .gt_indent_2 {
+#zeyxyeuxke .gt_indent_2 {
   text-indent: 10px;
 }
 
-#shybixrleu .gt_indent_3 {
+#zeyxyeuxke .gt_indent_3 {
   text-indent: 15px;
 }
 
-#shybixrleu .gt_indent_4 {
+#zeyxyeuxke .gt_indent_4 {
   text-indent: 20px;
 }
 
-#shybixrleu .gt_indent_5 {
+#zeyxyeuxke .gt_indent_5 {
   text-indent: 25px;
 }
 
-#shybixrleu .katex-display {
+#zeyxyeuxke .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#shybixrleu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zeyxyeuxke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1963,14 +1937,14 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Inflation-Adjusted Total Charges ($, 2017)</td>
+<td class="gt_row gt_left" headers="label">Inflation-Adjusted Total Charges (2017 USD)</td>
 <td class="gt_row gt_center" headers="stat_0">165,309 (114,943, 251,242)</td>
 <td class="gt_row gt_center" headers="stat_1">160,752 (112,428, 242,096)</td>
 <td class="gt_row gt_center" headers="stat_2">199,452 (135,512, 314,908)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Inflation-Adjusted Total Cost ($, 2017)</td>
+<td class="gt_row gt_left" headers="label">Inflation-Adjusted Total Cost (2017 USD)</td>
 <td class="gt_row gt_center" headers="stat_0">42,770 (32,570, 58,583)</td>
 <td class="gt_row gt_center" headers="stat_1">41,955 (32,050, 56,983)</td>
 <td class="gt_row gt_center" headers="stat_2">49,433 (36,946, 69,081)</td>
@@ -2004,48 +1978,48 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Any Major In-Hospital Complication</td>
-<td class="gt_row gt_center" headers="stat_0">76,957 (71.7%)</td>
-<td class="gt_row gt_center" headers="stat_1">65,577 (70.3%)</td>
-<td class="gt_row gt_center" headers="stat_2">11,380 (80.5%)</td>
+<td class="gt_row gt_center" headers="stat_0">65,416 (60.9%)</td>
+<td class="gt_row gt_center" headers="stat_1">55,111 (59.1%)</td>
+<td class="gt_row gt_center" headers="stat_2">10,305 (72.9%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Bleeding Complication (composite)</td>
+<td class="gt_row gt_left" headers="label">Bleeding Complication Composite</td>
 <td class="gt_row gt_center" headers="stat_0">3,653 (3.4%)</td>
 <td class="gt_row gt_center" headers="stat_1">2,961 (3.2%)</td>
 <td class="gt_row gt_center" headers="stat_2">692 (4.9%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Infectious Complication (composite)</td>
+<td class="gt_row gt_left" headers="label">Infectious Complication Composite</td>
 <td class="gt_row gt_center" headers="stat_0">7,328 (6.8%)</td>
 <td class="gt_row gt_center" headers="stat_1">5,830 (6.3%)</td>
 <td class="gt_row gt_center" headers="stat_2">1,498 (10.6%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Cardiac Complication (composite)</td>
-<td class="gt_row gt_center" headers="stat_0">65,028 (60.6%)</td>
-<td class="gt_row gt_center" headers="stat_1">55,445 (59.5%)</td>
-<td class="gt_row gt_center" headers="stat_2">9,584 (67.8%)</td>
+<td class="gt_row gt_left" headers="label">Cardiac Complication Composite</td>
+<td class="gt_row gt_center" headers="stat_0">46,015 (42.9%)</td>
+<td class="gt_row gt_center" headers="stat_1">38,741 (41.6%)</td>
+<td class="gt_row gt_center" headers="stat_2">7,274 (51.4%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Renal Complication (composite)</td>
+<td class="gt_row gt_left" headers="label">Renal Complication Composite</td>
 <td class="gt_row gt_center" headers="stat_0">26,263 (24.5%)</td>
 <td class="gt_row gt_center" headers="stat_1">21,116 (22.7%)</td>
 <td class="gt_row gt_center" headers="stat_2">5,147 (36.4%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Pulmonary Complication (composite)</td>
+<td class="gt_row gt_left" headers="label">Pulmonary Complication Composite</td>
 <td class="gt_row gt_center" headers="stat_0">20,554 (19.1%)</td>
 <td class="gt_row gt_center" headers="stat_1">16,833 (18.1%)</td>
 <td class="gt_row gt_center" headers="stat_2">3,722 (26.3%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Neurologic / Thromboembolic Complication (composite)</td>
+<td class="gt_row gt_left" headers="label">Neurologic / Thromboembolic Complication Composite</td>
 <td class="gt_row gt_center" headers="stat_0">2,443 (2.3%)</td>
 <td class="gt_row gt_center" headers="stat_1">1,960 (2.1%)</td>
 <td class="gt_row gt_center" headers="stat_2">483 (3.4%)</td>
@@ -2150,18 +2124,18 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Atrial Fibrillation / Flutter</td>
+<td class="gt_row gt_left" headers="label">Atrial Fibrillation / Flutter (present at admission or new)</td>
 <td class="gt_row gt_center" headers="stat_0">38,930 (36.3%)</td>
 <td class="gt_row gt_center" headers="stat_1">32,712 (35.1%)</td>
 <td class="gt_row gt_center" headers="stat_2">6,218 (44.0%)</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Myocardial Infarction</td>
-<td class="gt_row gt_center" headers="stat_0">36,197 (33.7%)</td>
-<td class="gt_row gt_center" headers="stat_1">31,085 (33.3%)</td>
-<td class="gt_row gt_center" headers="stat_2">5,112 (36.1%)</td>
-<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+<td class="gt_row gt_left" headers="label">Postprocedural Myocardial Infarction (I97.190, I97.790)</td>
+<td class="gt_row gt_center" headers="stat_0">744 (0.7%)</td>
+<td class="gt_row gt_center" headers="stat_1">658 (0.7%)</td>
+<td class="gt_row gt_center" headers="stat_2">86 (0.6%)</td>
+<td class="gt_row gt_center" headers="p.value">0.4</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Cardiac Arrest</td>
@@ -2217,148 +2191,168 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Table 2b. In-hospital mortality and complications by operation and admission type, computed on the SURGICAL cohort (which retains in-hospital deaths). The 30-day readmission column is computed on the index cohort. Rates are weighted, with design-based 95% confidence intervals.</caption>
+<caption>Table 2b. In-hospital mortality, complications and readmission by operation, admission type and obesity class. Mortality and complication columns are computed on the SURGICAL cohort (which retains in-hospital deaths); the readmission column is computed on the INDEX cohort. Each column carries its own unweighted denominator. Rates are weighted, with design-based 95% confidence intervals.</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 10%">
-<col style="width: 8%">
 <col style="width: 17%">
+<col style="width: 10%">
+<col style="width: 10%">
 <col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 9%">
 <col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Group</th>
-<th style="text-align: right;">Unweighted n</th>
-<th style="text-align: right;">Weighted N</th>
-<th style="text-align: left;">In-hospital mortality</th>
-<th style="text-align: left;">Any major complication</th>
-<th style="text-align: left;">30-day readmission</th>
+<th style="text-align: right;">Unweighted n (surgical)</th>
+<th style="text-align: right;">Weighted N (surgical)</th>
+<th style="text-align: left;">In-hospital mortality (surgical cohort)</th>
+<th style="text-align: left;">Any major complication (surgical cohort)</th>
+<th style="text-align: right;">Unweighted n (index)</th>
+<th style="text-align: left;">30-day readmission (index cohort)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">All CABG in obesity</td>
-<td style="text-align: right;">35176437</td>
-<td style="text-align: right;">71451419</td>
-<td style="text-align: left;">2.0% (1.9-2.0)</td>
-<td style="text-align: left;">35.7% (35.2-36.2)</td>
+<td style="text-align: right;">61902</td>
+<td style="text-align: right;">120216</td>
+<td style="text-align: left;">2.3% (2.2-2.5)</td>
+<td style="text-align: left;">62.0% (61.2-62.8)</td>
+<td style="text-align: right;">55303</td>
 <td style="text-align: left;">13.2% (12.8-13.5)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">cabg_type: Isolated CABG</td>
-<td style="text-align: right;">188433</td>
-<td style="text-align: right;">358562</td>
-<td style="text-align: left;">2.0% (1.9-2.1)</td>
-<td style="text-align: left;">69.5% (68.9-70.1)</td>
+<td style="text-align: right;">53417</td>
+<td style="text-align: right;">103760</td>
+<td style="text-align: left;">1.8% (1.7-1.9)</td>
+<td style="text-align: left;">59.7% (58.9-60.5)</td>
+<td style="text-align: right;">47946</td>
 <td style="text-align: left;">12.5% (12.2-12.9)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cabg_type: CABG + valve</td>
-<td style="text-align: right;">35835</td>
-<td style="text-align: right;">67553</td>
-<td style="text-align: left;">5.9% (5.6-6.3)</td>
-<td style="text-align: left;">78.1% (77.3-78.9)</td>
+<td style="text-align: right;">8485</td>
+<td style="text-align: right;">16457</td>
+<td style="text-align: left;">5.6% (5.0-6.3)</td>
+<td style="text-align: left;">76.4% (75.1-77.6)</td>
+<td style="text-align: right;">7357</td>
 <td style="text-align: left;">17.3% (16.3-18.4)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">n_vessels: 1</td>
-<td style="text-align: right;">68855</td>
-<td style="text-align: right;">129733</td>
-<td style="text-align: left;">3.2% (2.9-3.4)</td>
-<td style="text-align: left;">69.2% (68.5-69.9)</td>
+<td style="text-align: right;">18713</td>
+<td style="text-align: right;">36131</td>
+<td style="text-align: left;">2.8% (2.5-3.1)</td>
+<td style="text-align: left;">62.9% (61.8-63.9)</td>
+<td style="text-align: right;">16685</td>
 <td style="text-align: left;">13.9% (13.2-14.5)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">n_vessels: 2</td>
-<td style="text-align: right;">87726</td>
-<td style="text-align: right;">168294</td>
-<td style="text-align: left;">2.4% (2.2-2.5)</td>
-<td style="text-align: left;">71.1% (70.5-71.8)</td>
+<td style="text-align: right;">24590</td>
+<td style="text-align: right;">48166</td>
+<td style="text-align: left;">2.2% (2.0-2.4)</td>
+<td style="text-align: left;">62.0% (61.0-63.0)</td>
+<td style="text-align: right;">21927</td>
 <td style="text-align: left;">13.2% (12.7-13.7)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">n_vessels: 3</td>
-<td style="text-align: right;">52017</td>
-<td style="text-align: right;">98720</td>
-<td style="text-align: left;">2.3% (2.2-2.5)</td>
-<td style="text-align: left;">72.1% (71.3-72.9)</td>
+<td style="text-align: right;">14349</td>
+<td style="text-align: right;">27859</td>
+<td style="text-align: left;">2.0% (1.7-2.3)</td>
+<td style="text-align: left;">61.0% (59.8-62.1)</td>
+<td style="text-align: right;">12909</td>
 <td style="text-align: left;">12.2% (11.6-12.9)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">n_vessels: 4 or more</td>
-<td style="text-align: right;">15670</td>
-<td style="text-align: right;">29368</td>
-<td style="text-align: left;">2.3% (2.1-2.6)</td>
-<td style="text-align: left;">73.2% (72.1-74.2)</td>
+<td style="text-align: right;">4250</td>
+<td style="text-align: right;">8060</td>
+<td style="text-align: left;">2.2% (1.7-2.7)</td>
+<td style="text-align: left;">61.2% (59.1-63.3)</td>
+<td style="text-align: right;">3782</td>
 <td style="text-align: left;">13.1% (11.9-14.3)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">pump_status: On-pump (CPB coded)</td>
-<td style="text-align: right;">173685</td>
-<td style="text-align: right;">333284</td>
-<td style="text-align: left;">2.4% (2.2-2.5)</td>
-<td style="text-align: left;">70.5% (69.9-71.2)</td>
+<td style="text-align: right;">48427</td>
+<td style="text-align: right;">95008</td>
+<td style="text-align: left;">2.2% (2.0-2.4)</td>
+<td style="text-align: left;">62.1% (61.2-63.0)</td>
+<td style="text-align: right;">43277</td>
 <td style="text-align: left;">13.2% (12.8-13.7)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">pump_status: Off-pump (no CPB code)</td>
-<td style="text-align: right;">50583</td>
-<td style="text-align: right;">92831</td>
-<td style="text-align: left;">3.5% (3.2-3.8)</td>
-<td style="text-align: left;">72.2% (71.2-73.1)</td>
+<td style="text-align: right;">13475</td>
+<td style="text-align: right;">25208</td>
+<td style="text-align: left;">2.6% (2.3-2.9)</td>
+<td style="text-align: left;">61.5% (60.1-62.8)</td>
+<td style="text-align: right;">12026</td>
 <td style="text-align: left;">12.9% (12.2-13.7)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Admission_Type: Elective</td>
-<td style="text-align: right;">7448168</td>
-<td style="text-align: right;">14561288</td>
-<td style="text-align: left;">0.6% (0.5-0.6)</td>
-<td style="text-align: left;">15.8% (15.4-16.2)</td>
+<td style="text-align: right;">28314</td>
+<td style="text-align: right;">56166</td>
+<td style="text-align: left;">1.8% (1.6-2.0)</td>
+<td style="text-align: left;">57.5% (56.4-58.5)</td>
+<td style="text-align: right;">25465</td>
 <td style="text-align: left;">11.8% (11.3-12.3)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Admission_Type: Non-elective</td>
-<td style="text-align: right;">27670956</td>
-<td style="text-align: right;">56744628</td>
-<td style="text-align: left;">2.3% (2.3-2.4)</td>
-<td style="text-align: left;">—</td>
+<td style="text-align: right;">33400</td>
+<td style="text-align: right;">63573</td>
+<td style="text-align: left;">2.8% (2.6-3.0)</td>
+<td style="text-align: left;">66.0% (65.2-66.8)</td>
+<td style="text-align: right;">29669</td>
 <td style="text-align: left;">14.4% (13.9-14.9)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">obesity_class: Class I (BMI 30-34.9)</td>
-<td style="text-align: right;">991268</td>
-<td style="text-align: right;">1824549</td>
-<td style="text-align: left;">1.3% (1.3-1.4)</td>
-<td style="text-align: left;">43.3% (42.7-43.9)</td>
+<td style="text-align: right;">18668</td>
+<td style="text-align: right;">36068</td>
+<td style="text-align: left;">1.5% (1.2-1.7)</td>
+<td style="text-align: left;">58.1% (57.0-59.2)</td>
+<td style="text-align: right;">16760</td>
 <td style="text-align: left;">10.3% (9.8-10.9)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">obesity_class: Class II (BMI 35-39.9)</td>
-<td style="text-align: right;">773846</td>
-<td style="text-align: right;">1456978</td>
-<td style="text-align: left;">1.1% (1.0-1.1)</td>
-<td style="text-align: left;">40.2% (39.7-40.7)</td>
+<td style="text-align: right;">10381</td>
+<td style="text-align: right;">20803</td>
+<td style="text-align: left;">1.7% (1.4-2.0)</td>
+<td style="text-align: left;">57.8% (56.4-59.1)</td>
+<td style="text-align: right;">9334</td>
 <td style="text-align: left;">12.0% (11.3-12.8)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">obesity_class: Class III (BMI &gt;= 40)</td>
-<td style="text-align: right;">2794906</td>
-<td style="text-align: right;">5336136</td>
-<td style="text-align: left;">1.9% (1.9-1.9)</td>
-<td style="text-align: left;">48.3% (47.9-48.7)</td>
+<td style="text-align: right;">22202</td>
+<td style="text-align: right;">43412</td>
+<td style="text-align: left;">3.2% (2.9-3.5)</td>
+<td style="text-align: left;">66.3% (65.3-67.3)</td>
+<td style="text-align: right;">19685</td>
 <td style="text-align: left;">16.1% (15.5-16.7)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">obesity_class: Unspecified</td>
-<td style="text-align: right;">674293</td>
-<td style="text-align: right;">1280835</td>
-<td style="text-align: left;">2.1% (2.0-2.2)</td>
-<td style="text-align: left;">48.4% (47.8-49.0)</td>
+<td style="text-align: right;">10651</td>
+<td style="text-align: right;">19933</td>
+<td style="text-align: left;">2.6% (2.3-3.0)</td>
+<td style="text-align: left;">64.0% (62.8-65.3)</td>
+<td style="text-align: right;">9524</td>
 <td style="text-align: left;">13.2% (12.4-13.9)</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>In-hospital mortality in the surgical cohort was 2.3% (2.2-2.5) weighted (1,414 of 61,902 unweighted discharges). The index cohort excludes these patients by construction, so in-hospital mortality is not estimable on it and is never reported on it.</code></pre>
 </div>
 </div>
 </section>
@@ -2366,23 +2360,23 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="table-2c-readmission-hospitalization-outcomes">Table 2c — Readmission Hospitalization Outcomes</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="rzirzprtbj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rzirzprtbj table {
+<div id="dljjflcxis" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dljjflcxis table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rzirzprtbj thead, #rzirzprtbj tbody, #rzirzprtbj tfoot, #rzirzprtbj tr, #rzirzprtbj td, #rzirzprtbj th {
+#dljjflcxis thead, #dljjflcxis tbody, #dljjflcxis tfoot, #dljjflcxis tr, #dljjflcxis td, #dljjflcxis th {
   border-style: none;
 }
 
-#rzirzprtbj p {
+#dljjflcxis p {
   margin: 0;
   padding: 0;
 }
 
-#rzirzprtbj .gt_table {
+#dljjflcxis .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2408,12 +2402,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_caption {
+#dljjflcxis .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rzirzprtbj .gt_title {
+#dljjflcxis .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2425,7 +2419,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#rzirzprtbj .gt_subtitle {
+#dljjflcxis .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2437,7 +2431,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#rzirzprtbj .gt_heading {
+#dljjflcxis .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2449,13 +2443,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_bottom_border {
+#dljjflcxis .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_col_headings {
+#dljjflcxis .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2470,7 +2464,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_col_heading {
+#dljjflcxis .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2490,7 +2484,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#rzirzprtbj .gt_column_spanner_outer {
+#dljjflcxis .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2502,15 +2496,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#rzirzprtbj .gt_column_spanner_outer:first-child {
+#dljjflcxis .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rzirzprtbj .gt_column_spanner_outer:last-child {
+#dljjflcxis .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rzirzprtbj .gt_column_spanner {
+#dljjflcxis .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2522,11 +2516,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#rzirzprtbj .gt_spanner_row {
+#dljjflcxis .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rzirzprtbj .gt_group_heading {
+#dljjflcxis .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2552,7 +2546,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#rzirzprtbj .gt_empty_group_heading {
+#dljjflcxis .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2567,15 +2561,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#rzirzprtbj .gt_from_md > :first-child {
+#dljjflcxis .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rzirzprtbj .gt_from_md > :last-child {
+#dljjflcxis .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rzirzprtbj .gt_row {
+#dljjflcxis .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2594,7 +2588,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#rzirzprtbj .gt_stub {
+#dljjflcxis .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2607,7 +2601,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rzirzprtbj .gt_stub_row_group {
+#dljjflcxis .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2621,15 +2615,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#rzirzprtbj .gt_row_group_first td {
+#dljjflcxis .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rzirzprtbj .gt_row_group_first th {
+#dljjflcxis .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rzirzprtbj .gt_summary_row {
+#dljjflcxis .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2639,16 +2633,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rzirzprtbj .gt_first_summary_row {
+#dljjflcxis .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_first_summary_row.thick {
+#dljjflcxis .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rzirzprtbj .gt_last_summary_row {
+#dljjflcxis .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2658,7 +2652,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_grand_summary_row {
+#dljjflcxis .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2668,7 +2662,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rzirzprtbj .gt_first_grand_summary_row {
+#dljjflcxis .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2678,7 +2672,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_last_grand_summary_row_top {
+#dljjflcxis .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2688,11 +2682,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_striped {
+#dljjflcxis .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rzirzprtbj .gt_table_body {
+#dljjflcxis .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2701,7 +2695,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_footnotes {
+#dljjflcxis .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2715,7 +2709,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_footnote {
+#dljjflcxis .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2724,7 +2718,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rzirzprtbj .gt_sourcenotes {
+#dljjflcxis .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2738,7 +2732,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rzirzprtbj .gt_sourcenote {
+#dljjflcxis .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2746,72 +2740,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rzirzprtbj .gt_left {
+#dljjflcxis .gt_left {
   text-align: left;
 }
 
-#rzirzprtbj .gt_center {
+#dljjflcxis .gt_center {
   text-align: center;
 }
 
-#rzirzprtbj .gt_right {
+#dljjflcxis .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rzirzprtbj .gt_font_normal {
+#dljjflcxis .gt_font_normal {
   font-weight: normal;
 }
 
-#rzirzprtbj .gt_font_bold {
+#dljjflcxis .gt_font_bold {
   font-weight: bold;
 }
 
-#rzirzprtbj .gt_font_italic {
+#dljjflcxis .gt_font_italic {
   font-style: italic;
 }
 
-#rzirzprtbj .gt_super {
+#dljjflcxis .gt_super {
   font-size: 65%;
 }
 
-#rzirzprtbj .gt_footnote_marks {
+#dljjflcxis .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rzirzprtbj .gt_asterisk {
+#dljjflcxis .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rzirzprtbj .gt_indent_1 {
+#dljjflcxis .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rzirzprtbj .gt_indent_2 {
+#dljjflcxis .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rzirzprtbj .gt_indent_3 {
+#dljjflcxis .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rzirzprtbj .gt_indent_4 {
+#dljjflcxis .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rzirzprtbj .gt_indent_5 {
+#dljjflcxis .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rzirzprtbj .katex-display {
+#dljjflcxis .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rzirzprtbj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dljjflcxis div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2870,10 +2864,6 @@ window.Quarto = {
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Table 2c (continued). Timing and resource use at readmission.</caption>
-<colgroup>
-<col style="width: 58%">
-<col style="width: 41%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Measure</th>
@@ -2890,9 +2880,12 @@ window.Quarto = {
 <td style="text-align: left;">4 (2-8)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Charges at readmission ($, 2017)</td>
-<td style="text-align: left;">$36,945 ($20,194-<span class="math inline">\(74,736) |
-|Cost at readmission (\)</span>, 2017)</td>
+<td style="text-align: left;">Charges at readmission (2017 USD)</td>
+<td style="text-align: left;">$36,945 ($20,194-$74,736)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cost at readmission (2017 USD)</td>
+<td style="text-align: left;">$9,282 ($5,429-$17,749)</td>
 </tr>
 </tbody>
 </table>
@@ -3423,23 +3416,23 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="table-4-adjusted-predictors-of-30-day-readmission">Table 4 — Adjusted Predictors of 30-Day Readmission</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="dqbuqqruqn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dqbuqqruqn table {
+<div id="evhuadtsbc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#evhuadtsbc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dqbuqqruqn thead, #dqbuqqruqn tbody, #dqbuqqruqn tfoot, #dqbuqqruqn tr, #dqbuqqruqn td, #dqbuqqruqn th {
+#evhuadtsbc thead, #evhuadtsbc tbody, #evhuadtsbc tfoot, #evhuadtsbc tr, #evhuadtsbc td, #evhuadtsbc th {
   border-style: none;
 }
 
-#dqbuqqruqn p {
+#evhuadtsbc p {
   margin: 0;
   padding: 0;
 }
 
-#dqbuqqruqn .gt_table {
+#evhuadtsbc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3465,12 +3458,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_caption {
+#evhuadtsbc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dqbuqqruqn .gt_title {
+#evhuadtsbc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3482,7 +3475,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#dqbuqqruqn .gt_subtitle {
+#evhuadtsbc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3494,7 +3487,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#dqbuqqruqn .gt_heading {
+#evhuadtsbc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3506,13 +3499,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_bottom_border {
+#evhuadtsbc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_col_headings {
+#evhuadtsbc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3527,7 +3520,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_col_heading {
+#evhuadtsbc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3547,7 +3540,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#dqbuqqruqn .gt_column_spanner_outer {
+#evhuadtsbc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3559,15 +3552,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#dqbuqqruqn .gt_column_spanner_outer:first-child {
+#evhuadtsbc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dqbuqqruqn .gt_column_spanner_outer:last-child {
+#evhuadtsbc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dqbuqqruqn .gt_column_spanner {
+#evhuadtsbc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3579,11 +3572,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#dqbuqqruqn .gt_spanner_row {
+#evhuadtsbc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dqbuqqruqn .gt_group_heading {
+#evhuadtsbc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3609,7 +3602,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#dqbuqqruqn .gt_empty_group_heading {
+#evhuadtsbc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3624,15 +3617,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#dqbuqqruqn .gt_from_md > :first-child {
+#evhuadtsbc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dqbuqqruqn .gt_from_md > :last-child {
+#evhuadtsbc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dqbuqqruqn .gt_row {
+#evhuadtsbc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3651,7 +3644,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#dqbuqqruqn .gt_stub {
+#evhuadtsbc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3664,7 +3657,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#dqbuqqruqn .gt_stub_row_group {
+#evhuadtsbc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3678,15 +3671,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#dqbuqqruqn .gt_row_group_first td {
+#evhuadtsbc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dqbuqqruqn .gt_row_group_first th {
+#evhuadtsbc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dqbuqqruqn .gt_summary_row {
+#evhuadtsbc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3696,16 +3689,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#dqbuqqruqn .gt_first_summary_row {
+#evhuadtsbc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_first_summary_row.thick {
+#evhuadtsbc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dqbuqqruqn .gt_last_summary_row {
+#evhuadtsbc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3715,7 +3708,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_grand_summary_row {
+#evhuadtsbc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3725,7 +3718,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#dqbuqqruqn .gt_first_grand_summary_row {
+#evhuadtsbc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3735,7 +3728,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_last_grand_summary_row_top {
+#evhuadtsbc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3745,11 +3738,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_striped {
+#evhuadtsbc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dqbuqqruqn .gt_table_body {
+#evhuadtsbc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3758,7 +3751,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_footnotes {
+#evhuadtsbc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3772,7 +3765,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_footnote {
+#evhuadtsbc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3781,7 +3774,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#dqbuqqruqn .gt_sourcenotes {
+#evhuadtsbc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3795,7 +3788,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#dqbuqqruqn .gt_sourcenote {
+#evhuadtsbc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3803,72 +3796,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#dqbuqqruqn .gt_left {
+#evhuadtsbc .gt_left {
   text-align: left;
 }
 
-#dqbuqqruqn .gt_center {
+#evhuadtsbc .gt_center {
   text-align: center;
 }
 
-#dqbuqqruqn .gt_right {
+#evhuadtsbc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dqbuqqruqn .gt_font_normal {
+#evhuadtsbc .gt_font_normal {
   font-weight: normal;
 }
 
-#dqbuqqruqn .gt_font_bold {
+#evhuadtsbc .gt_font_bold {
   font-weight: bold;
 }
 
-#dqbuqqruqn .gt_font_italic {
+#evhuadtsbc .gt_font_italic {
   font-style: italic;
 }
 
-#dqbuqqruqn .gt_super {
+#evhuadtsbc .gt_super {
   font-size: 65%;
 }
 
-#dqbuqqruqn .gt_footnote_marks {
+#evhuadtsbc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dqbuqqruqn .gt_asterisk {
+#evhuadtsbc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dqbuqqruqn .gt_indent_1 {
+#evhuadtsbc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dqbuqqruqn .gt_indent_2 {
+#evhuadtsbc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dqbuqqruqn .gt_indent_3 {
+#evhuadtsbc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dqbuqqruqn .gt_indent_4 {
+#evhuadtsbc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dqbuqqruqn .gt_indent_5 {
+#evhuadtsbc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dqbuqqruqn .katex-display {
+#evhuadtsbc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dqbuqqruqn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#evhuadtsbc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3908,8 +3901,8 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;CABG + valve</td>
-<td class="gt_row gt_center" headers="estimate">1.28</td>
-<td class="gt_row gt_center" headers="conf.low">1.15, 1.41</td>
+<td class="gt_row gt_center" headers="estimate">1.26</td>
+<td class="gt_row gt_center" headers="conf.low">1.14, 1.39</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -3930,21 +3923,21 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
-<td class="gt_row gt_center" headers="estimate">0.99</td>
-<td class="gt_row gt_center" headers="conf.low">0.93, 1.06</td>
-<td class="gt_row gt_center" headers="p.value">0.8</td>
+<td class="gt_row gt_center" headers="estimate">1.00</td>
+<td class="gt_row gt_center" headers="conf.low">0.93, 1.07</td>
+<td class="gt_row gt_center" headers="p.value">&gt;0.9</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
-<td class="gt_row gt_center" headers="estimate">0.94</td>
-<td class="gt_row gt_center" headers="conf.low">0.87, 1.03</td>
+<td class="gt_row gt_center" headers="estimate">0.95</td>
+<td class="gt_row gt_center" headers="conf.low">0.87, 1.04</td>
 <td class="gt_row gt_center" headers="p.value">0.2</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;4 or more</td>
-<td class="gt_row gt_center" headers="estimate">1.04</td>
-<td class="gt_row gt_center" headers="conf.low">0.93, 1.17</td>
-<td class="gt_row gt_center" headers="p.value">0.5</td>
+<td class="gt_row gt_center" headers="estimate">1.05</td>
+<td class="gt_row gt_center" headers="conf.low">0.94, 1.18</td>
+<td class="gt_row gt_center" headers="p.value">0.4</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Cardiopulmonary Bypass</td>
@@ -3966,7 +3959,7 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Off-pump (no CPB code)</td>
 <td class="gt_row gt_center" headers="estimate">0.99</td>
 <td class="gt_row gt_center" headers="conf.low">0.92, 1.06</td>
-<td class="gt_row gt_center" headers="p.value">0.7</td>
+<td class="gt_row gt_center" headers="p.value">0.8</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Obesity Class</td>
@@ -3992,8 +3985,8 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Class III (BMI &gt;= 40)</td>
-<td class="gt_row gt_center" headers="estimate">1.37</td>
-<td class="gt_row gt_center" headers="conf.low">1.27, 1.47</td>
+<td class="gt_row gt_center" headers="estimate">1.36</td>
+<td class="gt_row gt_center" headers="conf.low">1.27, 1.46</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -4006,7 +3999,7 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="label">Age (years)</td>
 <td class="gt_row gt_center" headers="estimate">1.00</td>
 <td class="gt_row gt_center" headers="conf.low">0.99, 1.00</td>
-<td class="gt_row gt_center" headers="p.value">0.088</td>
+<td class="gt_row gt_center" headers="p.value">0.025</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Sex</td>
@@ -4026,8 +4019,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Female</td>
-<td class="gt_row gt_center" headers="estimate">1.34</td>
-<td class="gt_row gt_center" headers="conf.low">1.26, 1.43</td>
+<td class="gt_row gt_center" headers="estimate">1.36</td>
+<td class="gt_row gt_center" headers="conf.low">1.28, 1.44</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -4055,14 +4048,14 @@ window.Quarto = {
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Medicare</td>
 <td class="gt_row gt_center" headers="estimate">1.36</td>
-<td class="gt_row gt_center" headers="conf.low">1.26, 1.47</td>
+<td class="gt_row gt_center" headers="conf.low">1.26, 1.46</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Other/self-pay</td>
-<td class="gt_row gt_center" headers="estimate">1.15</td>
-<td class="gt_row gt_center" headers="conf.low">1.01, 1.32</td>
-<td class="gt_row gt_center" headers="p.value">0.040</td>
+<td class="gt_row gt_center" headers="estimate">1.16</td>
+<td class="gt_row gt_center" headers="conf.low">1.01, 1.33</td>
+<td class="gt_row gt_center" headers="p.value">0.034</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Median Household Income Quartile (ZIP)</td>
@@ -4090,12 +4083,12 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;51st to 75th percentile</td>
 <td class="gt_row gt_center" headers="estimate">0.92</td>
 <td class="gt_row gt_center" headers="conf.low">0.85, 1.00</td>
-<td class="gt_row gt_center" headers="p.value">0.042</td>
+<td class="gt_row gt_center" headers="p.value">0.040</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;76th to 100th percentile</td>
 <td class="gt_row gt_center" headers="estimate">0.87</td>
-<td class="gt_row gt_center" headers="conf.low">0.80, 0.96</td>
+<td class="gt_row gt_center" headers="conf.low">0.80, 0.95</td>
 <td class="gt_row gt_center" headers="p.value">0.003</td>
 </tr>
 <tr class="odd">
@@ -4122,9 +4115,9 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Weekend (Sat-Sun)</td>
-<td class="gt_row gt_center" headers="estimate">1.01</td>
-<td class="gt_row gt_center" headers="conf.low">0.93, 1.09</td>
-<td class="gt_row gt_center" headers="p.value">0.9</td>
+<td class="gt_row gt_center" headers="estimate">1.02</td>
+<td class="gt_row gt_center" headers="conf.low">0.94, 1.10</td>
+<td class="gt_row gt_center" headers="p.value">0.7</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Admission Type</td>
@@ -4144,9 +4137,9 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-elective</td>
-<td class="gt_row gt_center" headers="estimate">1.09</td>
-<td class="gt_row gt_center" headers="conf.low">1.02, 1.17</td>
-<td class="gt_row gt_center" headers="p.value">0.009</td>
+<td class="gt_row gt_center" headers="estimate">1.13</td>
+<td class="gt_row gt_center" headers="conf.low">1.06, 1.20</td>
+<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Hospital Bed Size</td>
@@ -4168,7 +4161,7 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Large</td>
 <td class="gt_row gt_center" headers="estimate">0.88</td>
 <td class="gt_row gt_center" headers="conf.low">0.80, 0.97</td>
-<td class="gt_row gt_center" headers="p.value">0.009</td>
+<td class="gt_row gt_center" headers="p.value">0.008</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Medium</td>
@@ -4196,12 +4189,12 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Metropolitan, teaching</td>
 <td class="gt_row gt_center" headers="estimate">0.93</td>
 <td class="gt_row gt_center" headers="conf.low">0.87, 1.01</td>
-<td class="gt_row gt_center" headers="p.value">0.078</td>
+<td class="gt_row gt_center" headers="p.value">0.077</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-metropolitan</td>
 <td class="gt_row gt_center" headers="estimate">1.00</td>
-<td class="gt_row gt_center" headers="conf.low">0.82, 1.23</td>
+<td class="gt_row gt_center" headers="conf.low">0.81, 1.24</td>
 <td class="gt_row gt_center" headers="p.value">&gt;0.9</td>
 </tr>
 <tr class="even">
@@ -4223,8 +4216,8 @@ window.Quarto = {
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;2017</td>
 <td class="gt_row gt_center" headers="estimate">1.00</td>
-<td class="gt_row gt_center" headers="conf.low">0.94, 1.07</td>
-<td class="gt_row gt_center" headers="p.value">&gt;0.9</td>
+<td class="gt_row gt_center" headers="conf.low">0.95, 1.07</td>
+<td class="gt_row gt_center" headers="p.value">0.9</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Diabetes Mellitus</td>
@@ -4245,7 +4238,7 @@ window.Quarto = {
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
 <td class="gt_row gt_center" headers="estimate">1.20</td>
-<td class="gt_row gt_center" headers="conf.low">1.13, 1.27</td>
+<td class="gt_row gt_center" headers="conf.low">1.13, 1.28</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -4289,7 +4282,7 @@ window.Quarto = {
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
 <td class="gt_row gt_center" headers="estimate">0.86</td>
-<td class="gt_row gt_center" headers="conf.low">0.80, 0.92</td>
+<td class="gt_row gt_center" headers="conf.low">0.80, 0.93</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -4310,8 +4303,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.25</td>
-<td class="gt_row gt_center" headers="conf.low">1.18, 1.33</td>
+<td class="gt_row gt_center" headers="estimate">1.24</td>
+<td class="gt_row gt_center" headers="conf.low">1.17, 1.32</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -4332,8 +4325,8 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">0.98</td>
-<td class="gt_row gt_center" headers="conf.low">0.91, 1.05</td>
+<td class="gt_row gt_center" headers="estimate">0.97</td>
+<td class="gt_row gt_center" headers="conf.low">0.91, 1.04</td>
 <td class="gt_row gt_center" headers="p.value">0.5</td>
 </tr>
 <tr class="even">
@@ -4376,7 +4369,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">0.96</td>
+<td class="gt_row gt_center" headers="estimate">0.95</td>
 <td class="gt_row gt_center" headers="conf.low">0.88, 1.04</td>
 <td class="gt_row gt_center" headers="p.value">0.3</td>
 </tr>
@@ -4399,8 +4392,8 @@ window.Quarto = {
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
 <td class="gt_row gt_center" headers="estimate">1.13</td>
-<td class="gt_row gt_center" headers="conf.low">1.04, 1.23</td>
-<td class="gt_row gt_center" headers="p.value">0.003</td>
+<td class="gt_row gt_center" headers="conf.low">1.04, 1.22</td>
+<td class="gt_row gt_center" headers="p.value">0.004</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Chronic Kidney Disease (non-ESRD)</td>
@@ -4420,9 +4413,9 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.10</td>
+<td class="gt_row gt_center" headers="estimate">1.11</td>
 <td class="gt_row gt_center" headers="conf.low">1.03, 1.19</td>
-<td class="gt_row gt_center" headers="p.value">0.007</td>
+<td class="gt_row gt_center" headers="p.value">0.005</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">End-Stage Renal Disease</td>
@@ -4442,8 +4435,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.59</td>
-<td class="gt_row gt_center" headers="conf.low">1.38, 1.83</td>
+<td class="gt_row gt_center" headers="estimate">1.60</td>
+<td class="gt_row gt_center" headers="conf.low">1.39, 1.84</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -4465,7 +4458,7 @@ window.Quarto = {
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
 <td class="gt_row gt_center" headers="estimate">1.34</td>
-<td class="gt_row gt_center" headers="conf.low">1.25, 1.44</td>
+<td class="gt_row gt_center" headers="conf.low">1.25, 1.43</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -4486,9 +4479,9 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.11</td>
-<td class="gt_row gt_center" headers="conf.low">1.04, 1.18</td>
-<td class="gt_row gt_center" headers="p.value">0.003</td>
+<td class="gt_row gt_center" headers="estimate">1.10</td>
+<td class="gt_row gt_center" headers="conf.low">1.03, 1.18</td>
+<td class="gt_row gt_center" headers="p.value">0.004</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Pulmonary Hypertension</td>
@@ -4508,9 +4501,9 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.17</td>
-<td class="gt_row gt_center" headers="conf.low">1.06, 1.28</td>
-<td class="gt_row gt_center" headers="p.value">0.002</td>
+<td class="gt_row gt_center" headers="estimate">1.16</td>
+<td class="gt_row gt_center" headers="conf.low">1.05, 1.27</td>
+<td class="gt_row gt_center" headers="p.value">0.003</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Anemia</td>
@@ -4530,9 +4523,9 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.09</td>
-<td class="gt_row gt_center" headers="conf.low">1.02, 1.16</td>
-<td class="gt_row gt_center" headers="p.value">0.009</td>
+<td class="gt_row gt_center" headers="estimate">1.08</td>
+<td class="gt_row gt_center" headers="conf.low">1.02, 1.15</td>
+<td class="gt_row gt_center" headers="p.value">0.011</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Coagulopathy</td>
@@ -4552,8 +4545,8 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.10</td>
-<td class="gt_row gt_center" headers="conf.low">0.96, 1.26</td>
+<td class="gt_row gt_center" headers="estimate">1.09</td>
+<td class="gt_row gt_center" headers="conf.low">0.95, 1.25</td>
 <td class="gt_row gt_center" headers="p.value">0.2</td>
 </tr>
 <tr class="even">
@@ -4574,9 +4567,9 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.19</td>
-<td class="gt_row gt_center" headers="conf.low">1.03, 1.36</td>
-<td class="gt_row gt_center" headers="p.value">0.014</td>
+<td class="gt_row gt_center" headers="estimate">1.18</td>
+<td class="gt_row gt_center" headers="conf.low">1.03, 1.35</td>
+<td class="gt_row gt_center" headers="p.value">0.020</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">Tobacco Use</td>
@@ -4596,9 +4589,9 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">0.92</td>
-<td class="gt_row gt_center" headers="conf.low">0.86, 0.99</td>
-<td class="gt_row gt_center" headers="p.value">0.033</td>
+<td class="gt_row gt_center" headers="estimate">0.93</td>
+<td class="gt_row gt_center" headers="conf.low">0.86, 1.00</td>
+<td class="gt_row gt_center" headers="p.value">0.056</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">Depression</td>
@@ -4623,7 +4616,7 @@ window.Quarto = {
 <td class="gt_row gt_center" headers="p.value">0.5</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Bleeding Complication</td>
+<td class="gt_row gt_left" headers="label">Bleeding Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4640,12 +4633,12 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.20</td>
-<td class="gt_row gt_center" headers="conf.low">1.03, 1.39</td>
-<td class="gt_row gt_center" headers="p.value">0.019</td>
+<td class="gt_row gt_center" headers="estimate">1.18</td>
+<td class="gt_row gt_center" headers="conf.low">1.02, 1.38</td>
+<td class="gt_row gt_center" headers="p.value">0.031</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Infectious Complication</td>
+<td class="gt_row gt_left" headers="label">Infectious Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4662,12 +4655,12 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.07</td>
-<td class="gt_row gt_center" headers="conf.low">0.97, 1.18</td>
+<td class="gt_row gt_center" headers="estimate">1.06</td>
+<td class="gt_row gt_center" headers="conf.low">0.96, 1.18</td>
 <td class="gt_row gt_center" headers="p.value">0.2</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Cardiac Complication</td>
+<td class="gt_row gt_left" headers="label">Cardiac Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4684,12 +4677,12 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.16</td>
-<td class="gt_row gt_center" headers="conf.low">1.08, 1.25</td>
+<td class="gt_row gt_center" headers="estimate">1.25</td>
+<td class="gt_row gt_center" headers="conf.low">1.17, 1.33</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Renal Complication</td>
+<td class="gt_row gt_left" headers="label">Renal Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4706,12 +4699,12 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.36</td>
-<td class="gt_row gt_center" headers="conf.low">1.27, 1.46</td>
+<td class="gt_row gt_center" headers="estimate">1.35</td>
+<td class="gt_row gt_center" headers="conf.low">1.26, 1.45</td>
 <td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="label">Pulmonary Complication</td>
+<td class="gt_row gt_left" headers="label">Pulmonary Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4728,12 +4721,12 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.13</td>
-<td class="gt_row gt_center" headers="conf.low">1.06, 1.21</td>
-<td class="gt_row gt_center" headers="p.value">&lt;0.001</td>
+<td class="gt_row gt_center" headers="estimate">1.12</td>
+<td class="gt_row gt_center" headers="conf.low">1.05, 1.19</td>
+<td class="gt_row gt_center" headers="p.value">0.001</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label">Neurologic / Thromboembolic Complication</td>
+<td class="gt_row gt_left" headers="label">Neurologic / Thromboembolic Complication Composite</td>
 <td class="gt_row gt_center" headers="estimate"><br>
 </td>
 <td class="gt_row gt_center" headers="conf.low"><br>
@@ -4750,9 +4743,9 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
-<td class="gt_row gt_center" headers="estimate">1.24</td>
-<td class="gt_row gt_center" headers="conf.low">1.07, 1.45</td>
-<td class="gt_row gt_center" headers="p.value">0.006</td>
+<td class="gt_row gt_center" headers="estimate">1.23</td>
+<td class="gt_row gt_center" headers="conf.low">1.05, 1.43</td>
+<td class="gt_row gt_center" headers="p.value">0.009</td>
 </tr>
 </tbody><tfoot>
 <tr class="odd gt_footnotes">
@@ -4768,6 +4761,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p><strong>How to read the complication terms in this table.</strong> Table 4 estimates the six pre-specified <em>composites</em>. The bleeding composite is the broad postprocedural haemorrhage and haematoma family together with tamponade; the infectious composite is postprocedural infection together with sepsis, pneumonia, mediastinitis and wound disruption. Sensitivity analysis <strong>S7, in Table 7</strong>, re-estimates the two <em>narrow</em> exposures on which the previously submitted version rested — postprocedural haemorrhage or haematoma alone, and postprocedural infection (<code>T81.4x</code>) alone — under this same corrected model. The two sets of estimates are not in conflict and are not interchangeable: they are different exposures. Table 4 is the primary result; S7 exists so that the corrected estimate of exactly the previously reported quantity is on the record. The single-code estimates are reported nowhere except Table 7.</p>
 <section id="table-4b-univariate-screen-of-every-candidate-covariate" class="level3">
 <h3 class="anchored" data-anchor-id="table-4b-univariate-screen-of-every-candidate-covariate">Table 4b — Univariate Screen of Every Candidate Covariate</h3>
 <div class="cell">
@@ -4775,10 +4769,10 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <caption>Table 4b. Univariate survey-weighted logistic regression for each candidate covariate. The p-value is the joint design-based Wald test for the whole variable. The final column marks variables reaching P &lt; 0.20, the threshold requested by reviewer #2.</caption>
 <colgroup>
-<col style="width: 39%">
-<col style="width: 22%">
-<col style="width: 12%">
-<col style="width: 25%">
+<col style="width: 44%">
+<col style="width: 20%">
+<col style="width: 11%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -4790,7 +4784,7 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Renal Complication</td>
+<td style="text-align: left;">Renal Complication Composite</td>
 <td style="text-align: left;">1.95 (1.84-2.07)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
@@ -4808,7 +4802,7 @@ window.Quarto = {
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Pulmonary Complication</td>
+<td style="text-align: left;">Pulmonary Complication Composite</td>
 <td style="text-align: left;">1.62 (1.53-1.72)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
@@ -4820,14 +4814,14 @@ window.Quarto = {
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">End-Stage Renal Disease</td>
-<td style="text-align: left;">2.50 (2.21-2.83)</td>
+<td style="text-align: left;">Obesity Class</td>
+<td style="text-align: left;">1.19 (1.09-1.30)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Obesity Class</td>
-<td style="text-align: left;">1.19 (1.09-1.30)</td>
+<td style="text-align: left;">End-Stage Renal Disease</td>
+<td style="text-align: left;">2.50 (2.21-2.83)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
@@ -4838,32 +4832,32 @@ window.Quarto = {
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Cardiac Complication Composite</td>
+<td style="text-align: left;">1.49 (1.40-1.58)</td>
+<td style="text-align: left;">&lt;0.001</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">Chronic Kidney Disease (non-ESRD)</td>
 <td style="text-align: left;">1.50 (1.41-1.59)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Infectious Complication</td>
+<tr class="odd">
+<td style="text-align: left;">Infectious Complication Composite</td>
 <td style="text-align: left;">1.77 (1.62-1.94)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Pulmonary Hypertension</td>
 <td style="text-align: left;">1.75 (1.60-1.91)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Diabetes Mellitus</td>
 <td style="text-align: left;">1.40 (1.33-1.48)</td>
-<td style="text-align: left;">&lt;0.001</td>
-<td style="text-align: left;">Yes</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Cardiac Complication</td>
-<td style="text-align: left;">1.43 (1.35-1.52)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
@@ -4898,7 +4892,7 @@ window.Quarto = {
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Neurologic / Thromboembolic Complication</td>
+<td style="text-align: left;">Neurologic / Thromboembolic Complication Composite</td>
 <td style="text-align: left;">1.64 (1.42-1.91)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
@@ -4910,7 +4904,7 @@ window.Quarto = {
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Bleeding Complication</td>
+<td style="text-align: left;">Bleeding Complication Composite</td>
 <td style="text-align: left;">1.57 (1.36-1.81)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
@@ -4965,7 +4959,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hospital Bed Size</td>
-<td style="text-align: left;">0.92 (0.83-1.03)</td>
+<td style="text-align: left;">0.92 (0.83-1.02)</td>
 <td style="text-align: left;">&lt;0.001</td>
 <td style="text-align: left;">Yes</td>
 </tr>
@@ -4978,19 +4972,19 @@ window.Quarto = {
 <tr class="even">
 <td style="text-align: left;">Hypertension</td>
 <td style="text-align: left;">1.09 (0.98-1.21)</td>
-<td style="text-align: left;">0.132</td>
+<td style="text-align: left;">0.130</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Tobacco Use</td>
-<td style="text-align: left;">0.95 (0.89-1.02)</td>
-<td style="text-align: left;">0.197</td>
+<td style="text-align: left;">0.95 (0.89-1.03)</td>
+<td style="text-align: left;">0.199</td>
 <td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hospital Location / Teaching Status</td>
 <td style="text-align: left;">0.94 (0.87-1.02)</td>
-<td style="text-align: left;">0.243</td>
+<td style="text-align: left;">0.246</td>
 <td style="text-align: left;">No</td>
 </tr>
 <tr class="odd">
@@ -5002,13 +4996,13 @@ window.Quarto = {
 <tr class="even">
 <td style="text-align: left;">Prior Myocardial Infarction</td>
 <td style="text-align: left;">0.99 (0.93-1.06)</td>
-<td style="text-align: left;">0.789</td>
+<td style="text-align: left;">0.787</td>
 <td style="text-align: left;">No</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Discharge Year</td>
 <td style="text-align: left;">1.01 (0.94-1.07)</td>
-<td style="text-align: left;">0.868</td>
+<td style="text-align: left;">0.866</td>
 <td style="text-align: left;">No</td>
 </tr>
 </tbody>
@@ -5037,23 +5031,23 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">cabg_typeCABG + valve</td>
-<td style="text-align: left;">1.28 (1.15-1.41)</td>
-<td style="text-align: left;">1.28 (1.16-1.41)</td>
+<td style="text-align: left;">1.26 (1.14-1.39)</td>
+<td style="text-align: left;">1.26 (1.14-1.39)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">n_vessels2</td>
-<td style="text-align: left;">0.99 (0.93-1.06)</td>
-<td style="text-align: left;">1.00 (0.93-1.06)</td>
+<td style="text-align: left;">1.00 (0.93-1.07)</td>
+<td style="text-align: left;">1.00 (0.93-1.07)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">n_vessels3</td>
-<td style="text-align: left;">0.94 (0.87-1.03)</td>
-<td style="text-align: left;">0.95 (0.87-1.03)</td>
+<td style="text-align: left;">0.95 (0.87-1.04)</td>
+<td style="text-align: left;">0.95 (0.88-1.04)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">n_vessels4 or more</td>
-<td style="text-align: left;">1.04 (0.93-1.17)</td>
-<td style="text-align: left;">1.05 (0.93-1.18)</td>
+<td style="text-align: left;">1.05 (0.94-1.18)</td>
+<td style="text-align: left;">1.06 (0.94-1.19)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">obesity_classClass II (BMI 35-39.9)</td>
@@ -5062,8 +5056,8 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">obesity_classClass III (BMI &gt;= 40)</td>
-<td style="text-align: left;">1.37 (1.27-1.47)</td>
-<td style="text-align: left;">1.37 (1.27-1.47)</td>
+<td style="text-align: left;">1.36 (1.27-1.46)</td>
+<td style="text-align: left;">1.36 (1.27-1.47)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">obesity_classUnspecified</td>
@@ -5077,23 +5071,23 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">FEMALEFemale</td>
-<td style="text-align: left;">1.34 (1.26-1.43)</td>
-<td style="text-align: left;">1.34 (1.26-1.43)</td>
+<td style="text-align: left;">1.36 (1.28-1.44)</td>
+<td style="text-align: left;">1.36 (1.28-1.44)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">PAY1Medicaid</td>
 <td style="text-align: left;">1.49 (1.34-1.66)</td>
-<td style="text-align: left;">1.49 (1.34-1.66)</td>
+<td style="text-align: left;">1.49 (1.34-1.65)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">PAY1Medicare</td>
-<td style="text-align: left;">1.36 (1.26-1.47)</td>
-<td style="text-align: left;">1.36 (1.26-1.47)</td>
+<td style="text-align: left;">1.36 (1.26-1.46)</td>
+<td style="text-align: left;">1.36 (1.26-1.46)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">PAY1Other/self-pay</td>
-<td style="text-align: left;">1.15 (1.01-1.32)</td>
-<td style="text-align: left;">1.15 (1.00-1.32)</td>
+<td style="text-align: left;">1.16 (1.01-1.33)</td>
+<td style="text-align: left;">1.16 (1.01-1.32)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ZIPINC_QRTL26th to 50th percentile</td>
@@ -5107,8 +5101,8 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ZIPINC_QRTL76th to 100th percentile</td>
-<td style="text-align: left;">0.87 (0.80-0.96)</td>
-<td style="text-align: left;">0.87 (0.79-0.95)</td>
+<td style="text-align: left;">0.87 (0.80-0.95)</td>
+<td style="text-align: left;">0.86 (0.79-0.95)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ZIPINC_QRTLMissing</td>
@@ -5117,13 +5111,13 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AWEEKENDWeekend (Sat-Sun)</td>
-<td style="text-align: left;">1.01 (0.93-1.09)</td>
-<td style="text-align: left;">1.01 (0.93-1.09)</td>
+<td style="text-align: left;">1.02 (0.94-1.10)</td>
+<td style="text-align: left;">1.02 (0.94-1.10)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Admission_TypeNon-elective</td>
-<td style="text-align: left;">1.09 (1.02-1.17)</td>
-<td style="text-align: left;">1.09 (1.02-1.17)</td>
+<td style="text-align: left;">1.13 (1.06-1.20)</td>
+<td style="text-align: left;">1.13 (1.06-1.20)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">HOSP_BEDSIZELarge</td>
@@ -5133,12 +5127,12 @@ window.Quarto = {
 <tr class="even">
 <td style="text-align: left;">HOSP_BEDSIZEMedium</td>
 <td style="text-align: left;">0.81 (0.73-0.91)</td>
-<td style="text-align: left;">0.81 (0.73-0.91)</td>
+<td style="text-align: left;">0.81 (0.73-0.90)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_dmYes</td>
-<td style="text-align: left;">1.20 (1.13-1.27)</td>
-<td style="text-align: left;">1.20 (1.13-1.27)</td>
+<td style="text-align: left;">1.20 (1.13-1.28)</td>
+<td style="text-align: left;">1.20 (1.13-1.28)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_htnYes</td>
@@ -5147,13 +5141,13 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_dyslipidemiaYes</td>
-<td style="text-align: left;">0.86 (0.80-0.92)</td>
+<td style="text-align: left;">0.86 (0.80-0.93)</td>
 <td style="text-align: left;">0.86 (0.80-0.92)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_chfYes</td>
-<td style="text-align: left;">1.25 (1.18-1.33)</td>
-<td style="text-align: left;">1.25 (1.17-1.33)</td>
+<td style="text-align: left;">1.24 (1.17-1.32)</td>
+<td style="text-align: left;">1.24 (1.16-1.32)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_prior_strokeYes</td>
@@ -5162,58 +5156,58 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_valve_diseaseYes</td>
-<td style="text-align: left;">0.96 (0.88-1.04)</td>
-<td style="text-align: left;">0.96 (0.88-1.04)</td>
+<td style="text-align: left;">0.95 (0.88-1.04)</td>
+<td style="text-align: left;">0.95 (0.87-1.04)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_pvdYes</td>
-<td style="text-align: left;">1.13 (1.04-1.23)</td>
+<td style="text-align: left;">1.13 (1.04-1.22)</td>
 <td style="text-align: left;">1.13 (1.04-1.22)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_ckd_nonesrdYes</td>
-<td style="text-align: left;">1.10 (1.03-1.19)</td>
-<td style="text-align: left;">1.10 (1.03-1.19)</td>
+<td style="text-align: left;">1.11 (1.03-1.19)</td>
+<td style="text-align: left;">1.11 (1.03-1.19)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_esrdYes</td>
-<td style="text-align: left;">1.59 (1.38-1.83)</td>
-<td style="text-align: left;">1.59 (1.38-1.83)</td>
+<td style="text-align: left;">1.60 (1.39-1.84)</td>
+<td style="text-align: left;">1.60 (1.39-1.84)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_copdYes</td>
-<td style="text-align: left;">1.34 (1.25-1.44)</td>
-<td style="text-align: left;">1.34 (1.25-1.44)</td>
+<td style="text-align: left;">1.34 (1.25-1.43)</td>
+<td style="text-align: left;">1.34 (1.25-1.43)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_osaYes</td>
-<td style="text-align: left;">1.11 (1.04-1.18)</td>
 <td style="text-align: left;">1.10 (1.03-1.18)</td>
+<td style="text-align: left;">1.10 (1.03-1.17)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_pulm_htnYes</td>
-<td style="text-align: left;">1.17 (1.06-1.28)</td>
-<td style="text-align: left;">1.17 (1.06-1.28)</td>
+<td style="text-align: left;">1.16 (1.05-1.27)</td>
+<td style="text-align: left;">1.15 (1.05-1.27)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_anemiaYes</td>
-<td style="text-align: left;">1.09 (1.02-1.16)</td>
+<td style="text-align: left;">1.08 (1.02-1.15)</td>
 <td style="text-align: left;">1.08 (1.02-1.15)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_coagulopathyYes</td>
-<td style="text-align: left;">1.10 (0.96-1.26)</td>
-<td style="text-align: left;">1.10 (0.96-1.26)</td>
+<td style="text-align: left;">1.09 (0.95-1.25)</td>
+<td style="text-align: left;">1.09 (0.95-1.25)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_liverYes</td>
-<td style="text-align: left;">1.19 (1.03-1.36)</td>
-<td style="text-align: left;">1.19 (1.03-1.36)</td>
+<td style="text-align: left;">1.18 (1.03-1.35)</td>
+<td style="text-align: left;">1.18 (1.03-1.35)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_smokingYes</td>
-<td style="text-align: left;">0.92 (0.86-0.99)</td>
-<td style="text-align: left;">0.92 (0.86-0.99)</td>
+<td style="text-align: left;">0.93 (0.86-1.00)</td>
+<td style="text-align: left;">0.93 (0.86-1.00)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_depressionYes</td>
@@ -5222,33 +5216,33 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_bleedingYes</td>
-<td style="text-align: left;">1.20 (1.03-1.39)</td>
-<td style="text-align: left;">1.20 (1.03-1.39)</td>
+<td style="text-align: left;">1.18 (1.02-1.38)</td>
+<td style="text-align: left;">1.18 (1.02-1.37)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_infectiousYes</td>
-<td style="text-align: left;">1.07 (0.97-1.18)</td>
-<td style="text-align: left;">1.07 (0.97-1.19)</td>
+<td style="text-align: left;">1.06 (0.96-1.18)</td>
+<td style="text-align: left;">1.07 (0.96-1.18)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_cardiacYes</td>
-<td style="text-align: left;">1.16 (1.08-1.25)</td>
-<td style="text-align: left;">1.16 (1.08-1.25)</td>
+<td style="text-align: left;">1.25 (1.17-1.33)</td>
+<td style="text-align: left;">1.25 (1.17-1.33)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_renalYes</td>
-<td style="text-align: left;">1.36 (1.27-1.46)</td>
-<td style="text-align: left;">1.36 (1.26-1.45)</td>
+<td style="text-align: left;">1.35 (1.26-1.45)</td>
+<td style="text-align: left;">1.35 (1.26-1.44)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_pulmonaryYes</td>
-<td style="text-align: left;">1.13 (1.06-1.21)</td>
-<td style="text-align: left;">1.13 (1.06-1.21)</td>
+<td style="text-align: left;">1.12 (1.05-1.19)</td>
+<td style="text-align: left;">1.12 (1.05-1.20)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_neuroYes</td>
-<td style="text-align: left;">1.24 (1.07-1.45)</td>
-<td style="text-align: left;">1.24 (1.07-1.45)</td>
+<td style="text-align: left;">1.23 (1.05-1.43)</td>
+<td style="text-align: left;">1.23 (1.05-1.44)</td>
 </tr>
 </tbody>
 </table>
@@ -5262,10 +5256,10 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <caption>Table 4d. Each complication composite estimated unadjusted, adjusted without mediators (the primary model), and adjusted with length of stay and discharge disposition added.</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 16%">
-<col style="width: 23%">
-<col style="width: 29%">
+<col style="width: 34%">
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 27%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -5277,40 +5271,40 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bleeding Complication</td>
+<td style="text-align: left;">Bleeding Complication Composite</td>
 <td style="text-align: left;">1.57 (1.36-1.81)</td>
-<td style="text-align: left;">1.20 (1.03-1.39)</td>
-<td style="text-align: left;">1.12 (0.96-1.31)</td>
+<td style="text-align: left;">1.18 (1.02-1.38)</td>
+<td style="text-align: left;">1.11 (0.95-1.30)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Infectious Complication</td>
+<td style="text-align: left;">Infectious Complication Composite</td>
 <td style="text-align: left;">1.77 (1.62-1.94)</td>
-<td style="text-align: left;">1.07 (0.97-1.18)</td>
-<td style="text-align: left;">0.92 (0.82-1.03)</td>
+<td style="text-align: left;">1.06 (0.96-1.18)</td>
+<td style="text-align: left;">0.92 (0.83-1.03)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Cardiac Complication</td>
-<td style="text-align: left;">1.43 (1.35-1.52)</td>
-<td style="text-align: left;">1.16 (1.08-1.25)</td>
-<td style="text-align: left;">1.13 (1.05-1.21)</td>
+<td style="text-align: left;">Cardiac Complication Composite</td>
+<td style="text-align: left;">1.49 (1.40-1.58)</td>
+<td style="text-align: left;">1.25 (1.17-1.33)</td>
+<td style="text-align: left;">1.21 (1.13-1.29)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Renal Complication</td>
+<td style="text-align: left;">Renal Complication Composite</td>
 <td style="text-align: left;">1.95 (1.84-2.07)</td>
-<td style="text-align: left;">1.36 (1.27-1.46)</td>
-<td style="text-align: left;">1.28 (1.19-1.38)</td>
+<td style="text-align: left;">1.35 (1.26-1.45)</td>
+<td style="text-align: left;">1.28 (1.19-1.37)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Pulmonary Complication</td>
+<td style="text-align: left;">Pulmonary Complication Composite</td>
 <td style="text-align: left;">1.62 (1.53-1.72)</td>
-<td style="text-align: left;">1.13 (1.06-1.21)</td>
-<td style="text-align: left;">1.05 (0.98-1.12)</td>
+<td style="text-align: left;">1.12 (1.05-1.19)</td>
+<td style="text-align: left;">1.04 (0.97-1.11)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Neurologic / Thromboembolic Complication</td>
+<td style="text-align: left;">Neurologic / Thromboembolic Complication Composite</td>
 <td style="text-align: left;">1.64 (1.42-1.91)</td>
-<td style="text-align: left;">1.24 (1.07-1.45)</td>
-<td style="text-align: left;">1.04 (0.88-1.21)</td>
+<td style="text-align: left;">1.23 (1.05-1.43)</td>
+<td style="text-align: left;">1.03 (0.88-1.21)</td>
 </tr>
 </tbody>
 </table>
@@ -5339,7 +5333,7 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;">9</td>
 <td style="text-align: left;">AGE</td>
-<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">1.97</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">12</td>
@@ -5415,15 +5409,16 @@ window.Quarto = {
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Table 5. Weighted readmission, mortality and complication rates by obesity class, operation performed, number of coronary sites bypassed and pump status, with design-based 95% confidence intervals.</caption>
+<caption>Table 5. Weighted readmission, mortality and complication rates by obesity class, operation performed, number of coronary sites bypassed and pump status, with design-based 95% confidence intervals. Readmission is computed on the index cohort and mortality and complications on the surgical cohort; the unweighted denominator for each is printed in its own column.</caption>
 <colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 8%">
 <col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 13%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 18%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -5431,9 +5426,10 @@ window.Quarto = {
 <th style="text-align: left;">Subgroup</th>
 <th style="text-align: right;">Unweighted n (index)</th>
 <th style="text-align: right;">Weighted N (index)</th>
-<th style="text-align: left;">30-day readmission</th>
-<th style="text-align: left;">In-hospital mortality</th>
-<th style="text-align: left;">Any major complication</th>
+<th style="text-align: left;">30-day readmission (index cohort)</th>
+<th style="text-align: right;">Unweighted n (surgical)</th>
+<th style="text-align: left;">In-hospital mortality (surgical cohort)</th>
+<th style="text-align: left;">Any major complication (surgical cohort)</th>
 </tr>
 </thead>
 <tbody>
@@ -5443,8 +5439,9 @@ window.Quarto = {
 <td style="text-align: right;">16760</td>
 <td style="text-align: right;">32387</td>
 <td style="text-align: left;">10.3% (9.8-10.9)</td>
-<td style="text-align: left;">1.3% (1.3-1.4)</td>
-<td style="text-align: left;">43.3% (42.7-43.9)</td>
+<td style="text-align: right;">18668</td>
+<td style="text-align: left;">1.5% (1.2-1.7)</td>
+<td style="text-align: left;">58.1% (57.0-59.2)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Obesity class</td>
@@ -5452,8 +5449,9 @@ window.Quarto = {
 <td style="text-align: right;">9334</td>
 <td style="text-align: right;">18662</td>
 <td style="text-align: left;">12.0% (11.3-12.8)</td>
-<td style="text-align: left;">1.1% (1.0-1.1)</td>
-<td style="text-align: left;">40.2% (39.7-40.7)</td>
+<td style="text-align: right;">10381</td>
+<td style="text-align: left;">1.7% (1.4-2.0)</td>
+<td style="text-align: left;">57.8% (56.4-59.1)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Obesity class</td>
@@ -5461,8 +5459,9 @@ window.Quarto = {
 <td style="text-align: right;">19685</td>
 <td style="text-align: right;">38516</td>
 <td style="text-align: left;">16.1% (15.5-16.7)</td>
-<td style="text-align: left;">1.9% (1.9-1.9)</td>
-<td style="text-align: left;">48.3% (47.9-48.7)</td>
+<td style="text-align: right;">22202</td>
+<td style="text-align: left;">3.2% (2.9-3.5)</td>
+<td style="text-align: left;">66.3% (65.3-67.3)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Obesity class</td>
@@ -5470,8 +5469,9 @@ window.Quarto = {
 <td style="text-align: right;">9524</td>
 <td style="text-align: right;">17801</td>
 <td style="text-align: left;">13.2% (12.4-13.9)</td>
-<td style="text-align: left;">2.1% (2.0-2.2)</td>
-<td style="text-align: left;">48.4% (47.8-49.0)</td>
+<td style="text-align: right;">10651</td>
+<td style="text-align: left;">2.6% (2.3-3.0)</td>
+<td style="text-align: left;">64.0% (62.8-65.3)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Operation performed</td>
@@ -5479,8 +5479,9 @@ window.Quarto = {
 <td style="text-align: right;">47946</td>
 <td style="text-align: right;">93150</td>
 <td style="text-align: left;">12.5% (12.2-12.9)</td>
-<td style="text-align: left;">2.0% (1.9-2.1)</td>
-<td style="text-align: left;">69.5% (68.9-70.1)</td>
+<td style="text-align: right;">53417</td>
+<td style="text-align: left;">1.8% (1.7-1.9)</td>
+<td style="text-align: left;">59.7% (58.9-60.5)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Operation performed</td>
@@ -5488,8 +5489,9 @@ window.Quarto = {
 <td style="text-align: right;">7357</td>
 <td style="text-align: right;">14216</td>
 <td style="text-align: left;">17.3% (16.3-18.4)</td>
-<td style="text-align: left;">5.9% (5.6-6.3)</td>
-<td style="text-align: left;">78.1% (77.3-78.9)</td>
+<td style="text-align: right;">8485</td>
+<td style="text-align: left;">5.6% (5.0-6.3)</td>
+<td style="text-align: left;">76.4% (75.1-77.6)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Coronary sites bypassed</td>
@@ -5497,8 +5499,9 @@ window.Quarto = {
 <td style="text-align: right;">16685</td>
 <td style="text-align: right;">32129</td>
 <td style="text-align: left;">13.9% (13.2-14.5)</td>
-<td style="text-align: left;">3.2% (2.9-3.4)</td>
-<td style="text-align: left;">69.2% (68.5-69.9)</td>
+<td style="text-align: right;">18713</td>
+<td style="text-align: left;">2.8% (2.5-3.1)</td>
+<td style="text-align: left;">62.9% (61.8-63.9)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Coronary sites bypassed</td>
@@ -5506,8 +5509,9 @@ window.Quarto = {
 <td style="text-align: right;">21927</td>
 <td style="text-align: right;">42953</td>
 <td style="text-align: left;">13.2% (12.7-13.7)</td>
-<td style="text-align: left;">2.4% (2.2-2.5)</td>
-<td style="text-align: left;">71.1% (70.5-71.8)</td>
+<td style="text-align: right;">24590</td>
+<td style="text-align: left;">2.2% (2.0-2.4)</td>
+<td style="text-align: left;">62.0% (61.0-63.0)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Coronary sites bypassed</td>
@@ -5515,8 +5519,9 @@ window.Quarto = {
 <td style="text-align: right;">12909</td>
 <td style="text-align: right;">25099</td>
 <td style="text-align: left;">12.2% (11.6-12.9)</td>
-<td style="text-align: left;">2.3% (2.2-2.5)</td>
-<td style="text-align: left;">72.1% (71.3-72.9)</td>
+<td style="text-align: right;">14349</td>
+<td style="text-align: left;">2.0% (1.7-2.3)</td>
+<td style="text-align: left;">61.0% (59.8-62.1)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Coronary sites bypassed</td>
@@ -5524,8 +5529,9 @@ window.Quarto = {
 <td style="text-align: right;">3782</td>
 <td style="text-align: right;">7185</td>
 <td style="text-align: left;">13.1% (11.9-14.3)</td>
-<td style="text-align: left;">2.3% (2.1-2.6)</td>
-<td style="text-align: left;">73.2% (72.1-74.2)</td>
+<td style="text-align: right;">4250</td>
+<td style="text-align: left;">2.2% (1.7-2.7)</td>
+<td style="text-align: left;">61.2% (59.1-63.3)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Cardiopulmonary bypass</td>
@@ -5533,8 +5539,9 @@ window.Quarto = {
 <td style="text-align: right;">43277</td>
 <td style="text-align: right;">84893</td>
 <td style="text-align: left;">13.2% (12.8-13.7)</td>
-<td style="text-align: left;">2.4% (2.2-2.5)</td>
-<td style="text-align: left;">70.5% (69.9-71.2)</td>
+<td style="text-align: right;">48427</td>
+<td style="text-align: left;">2.2% (2.0-2.4)</td>
+<td style="text-align: left;">62.1% (61.2-63.0)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Cardiopulmonary bypass</td>
@@ -5542,8 +5549,9 @@ window.Quarto = {
 <td style="text-align: right;">12026</td>
 <td style="text-align: right;">22473</td>
 <td style="text-align: left;">12.9% (12.2-13.7)</td>
-<td style="text-align: left;">3.5% (3.2-3.8)</td>
-<td style="text-align: left;">72.2% (71.2-73.1)</td>
+<td style="text-align: right;">13475</td>
+<td style="text-align: left;">2.6% (2.3-2.9)</td>
+<td style="text-align: left;">61.5% (60.1-62.8)</td>
 </tr>
 </tbody>
 </table>
@@ -5576,60 +5584,60 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bleeding complication</td>
-<td style="text-align: left;">1.23 (0.92-1.64)</td>
-<td style="text-align: left;">1.15 (0.78-1.67)</td>
-<td style="text-align: left;">1.15 (0.92-1.42)</td>
-<td style="text-align: left;">1.37 (1.03-1.83)</td>
-<td style="text-align: left;">0.752</td>
+<td style="text-align: left;">Bleeding complication composite</td>
+<td style="text-align: left;">1.21 (0.91-1.62)</td>
+<td style="text-align: left;">1.12 (0.76-1.64)</td>
+<td style="text-align: left;">1.13 (0.91-1.41)</td>
+<td style="text-align: left;">1.36 (1.03-1.81)</td>
+<td style="text-align: left;">0.747</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Infectious complication</td>
-<td style="text-align: left;">1.20 (0.97-1.49)</td>
-<td style="text-align: left;">1.12 (0.81-1.54)</td>
-<td style="text-align: left;">1.01 (0.87-1.18)</td>
+<td style="text-align: left;">Infectious complication composite</td>
+<td style="text-align: left;">1.19 (0.96-1.48)</td>
+<td style="text-align: left;">1.11 (0.80-1.53)</td>
+<td style="text-align: left;">1.01 (0.86-1.17)</td>
 <td style="text-align: left;">1.08 (0.87-1.34)</td>
-<td style="text-align: left;">0.730</td>
+<td style="text-align: left;">0.718</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Renal complication</td>
+<td style="text-align: left;">Renal complication composite</td>
 <td style="text-align: left;">1.25 (1.08-1.45)</td>
-<td style="text-align: left;">1.40 (1.16-1.68)</td>
-<td style="text-align: left;">1.40 (1.26-1.55)</td>
-<td style="text-align: left;">1.37 (1.16-1.61)</td>
-<td style="text-align: left;">0.597</td>
+<td style="text-align: left;">1.37 (1.14-1.66)</td>
+<td style="text-align: left;">1.39 (1.25-1.54)</td>
+<td style="text-align: left;">1.36 (1.16-1.61)</td>
+<td style="text-align: left;">0.602</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Congestive heart failure</td>
-<td style="text-align: left;">1.06 (0.93-1.22)</td>
-<td style="text-align: left;">1.39 (1.19-1.64)</td>
-<td style="text-align: left;">1.32 (1.20-1.44)</td>
-<td style="text-align: left;">1.27 (1.08-1.48)</td>
-<td style="text-align: left;">0.048</td>
+<td style="text-align: left;">1.05 (0.91-1.21)</td>
+<td style="text-align: left;">1.37 (1.17-1.61)</td>
+<td style="text-align: left;">1.31 (1.19-1.44)</td>
+<td style="text-align: left;">1.26 (1.08-1.48)</td>
+<td style="text-align: left;">0.044</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chronic kidney disease</td>
-<td style="text-align: left;">1.16 (1.00-1.34)</td>
-<td style="text-align: left;">1.05 (0.87-1.26)</td>
+<td style="text-align: left;">1.16 (1.00-1.35)</td>
+<td style="text-align: left;">1.06 (0.88-1.28)</td>
 <td style="text-align: left;">1.15 (1.03-1.28)</td>
 <td style="text-align: left;">0.97 (0.82-1.14)</td>
-<td style="text-align: left;">0.123</td>
+<td style="text-align: left;">0.105</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Highest income quartile (vs lowest)</td>
-<td style="text-align: left;">0.91 (0.76-1.10)</td>
+<td style="text-align: left;">0.91 (0.76-1.09)</td>
 <td style="text-align: left;">0.90 (0.70-1.16)</td>
-<td style="text-align: left;">0.84 (0.73-0.97)</td>
+<td style="text-align: left;">0.84 (0.73-0.96)</td>
 <td style="text-align: left;">0.89 (0.73-1.09)</td>
-<td style="text-align: left;">0.932</td>
+<td style="text-align: left;">0.931</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Age (per year)</td>
-<td style="text-align: left;">1.00 (0.99-1.01)</td>
-<td style="text-align: left;">0.99 (0.98-1.00)</td>
 <td style="text-align: left;">1.00 (0.99-1.00)</td>
+<td style="text-align: left;">0.99 (0.98-1.00)</td>
+<td style="text-align: left;">0.99 (0.99-1.00)</td>
 <td style="text-align: left;">1.00 (0.99-1.01)</td>
-<td style="text-align: left;">0.288</td>
+<td style="text-align: left;">0.275</td>
 </tr>
 </tbody>
 </table>
@@ -5654,46 +5662,46 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bleeding complication</td>
-<td style="text-align: left;">1.08 (0.91-1.28)</td>
-<td style="text-align: left;">1.62 (1.24-2.13)</td>
-<td style="text-align: left;">0.071</td>
+<td style="text-align: left;">Bleeding complication composite</td>
+<td style="text-align: left;">1.06 (0.90-1.25)</td>
+<td style="text-align: left;">1.61 (1.23-2.11)</td>
+<td style="text-align: left;">0.064</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Infectious complication</td>
-<td style="text-align: left;">1.12 (1.00-1.25)</td>
-<td style="text-align: left;">0.91 (0.72-1.15)</td>
-<td style="text-align: left;">0.035</td>
+<td style="text-align: left;">Infectious complication composite</td>
+<td style="text-align: left;">1.11 (0.99-1.24)</td>
+<td style="text-align: left;">0.91 (0.72-1.14)</td>
+<td style="text-align: left;">0.033</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Renal complication</td>
-<td style="text-align: left;">1.36 (1.25-1.47)</td>
-<td style="text-align: left;">1.37 (1.17-1.61)</td>
-<td style="text-align: left;">0.245</td>
+<td style="text-align: left;">Renal complication composite</td>
+<td style="text-align: left;">1.35 (1.25-1.46)</td>
+<td style="text-align: left;">1.37 (1.16-1.60)</td>
+<td style="text-align: left;">0.233</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Congestive heart failure</td>
-<td style="text-align: left;">1.26 (1.18-1.36)</td>
+<td style="text-align: left;">1.25 (1.17-1.34)</td>
 <td style="text-align: left;">1.16 (1.00-1.34)</td>
-<td style="text-align: left;">0.246</td>
+<td style="text-align: left;">0.225</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chronic kidney disease</td>
-<td style="text-align: left;">1.12 (1.04-1.22)</td>
-<td style="text-align: left;">1.02 (0.87-1.21)</td>
-<td style="text-align: left;">0.307</td>
+<td style="text-align: left;">1.13 (1.04-1.22)</td>
+<td style="text-align: left;">1.02 (0.87-1.20)</td>
+<td style="text-align: left;">0.301</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Highest income quartile (vs lowest)</td>
 <td style="text-align: left;">0.87 (0.79-0.96)</td>
 <td style="text-align: left;">0.90 (0.73-1.11)</td>
-<td style="text-align: left;">0.810</td>
+<td style="text-align: left;">0.808</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Age (per year)</td>
 <td style="text-align: left;">0.99 (0.99-1.00)</td>
 <td style="text-align: left;">1.00 (0.99-1.02)</td>
-<td style="text-align: left;">0.484</td>
+<td style="text-align: left;">0.376</td>
 </tr>
 </tbody>
 </table>
@@ -5722,60 +5730,60 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bleeding complication</td>
-<td style="text-align: left;">1.38 (1.07-1.78)</td>
-<td style="text-align: left;">1.01 (0.80-1.28)</td>
-<td style="text-align: left;">1.25 (0.94-1.66)</td>
-<td style="text-align: left;">1.30 (0.79-2.13)</td>
-<td style="text-align: left;">0.427</td>
+<td style="text-align: left;">Bleeding complication composite</td>
+<td style="text-align: left;">1.36 (1.06-1.75)</td>
+<td style="text-align: left;">1.00 (0.79-1.26)</td>
+<td style="text-align: left;">1.24 (0.93-1.64)</td>
+<td style="text-align: left;">1.26 (0.76-2.08)</td>
+<td style="text-align: left;">0.425</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Infectious complication</td>
-<td style="text-align: left;">1.15 (0.94-1.40)</td>
-<td style="text-align: left;">1.05 (0.89-1.24)</td>
+<td style="text-align: left;">Infectious complication composite</td>
+<td style="text-align: left;">1.14 (0.94-1.39)</td>
+<td style="text-align: left;">1.04 (0.88-1.23)</td>
 <td style="text-align: left;">1.03 (0.85-1.26)</td>
-<td style="text-align: left;">0.90 (0.61-1.32)</td>
-<td style="text-align: left;">0.844</td>
+<td style="text-align: left;">0.85 (0.57-1.25)</td>
+<td style="text-align: left;">0.842</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Renal complication</td>
-<td style="text-align: left;">1.32 (1.16-1.51)</td>
+<td style="text-align: left;">Renal complication composite</td>
+<td style="text-align: left;">1.32 (1.15-1.50)</td>
 <td style="text-align: left;">1.39 (1.24-1.56)</td>
 <td style="text-align: left;">1.35 (1.17-1.56)</td>
-<td style="text-align: left;">1.34 (1.05-1.71)</td>
-<td style="text-align: left;">0.395</td>
+<td style="text-align: left;">1.31 (1.03-1.67)</td>
+<td style="text-align: left;">0.363</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Congestive heart failure</td>
-<td style="text-align: left;">1.18 (1.05-1.32)</td>
-<td style="text-align: left;">1.32 (1.19-1.46)</td>
-<td style="text-align: left;">1.20 (1.06-1.37)</td>
-<td style="text-align: left;">1.43 (1.14-1.80)</td>
-<td style="text-align: left;">0.175</td>
+<td style="text-align: left;">1.17 (1.05-1.32)</td>
+<td style="text-align: left;">1.31 (1.18-1.44)</td>
+<td style="text-align: left;">1.20 (1.05-1.37)</td>
+<td style="text-align: left;">1.40 (1.12-1.76)</td>
+<td style="text-align: left;">0.170</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chronic kidney disease</td>
-<td style="text-align: left;">1.03 (0.90-1.18)</td>
+<td style="text-align: left;">1.04 (0.91-1.19)</td>
 <td style="text-align: left;">1.18 (1.05-1.33)</td>
-<td style="text-align: left;">1.10 (0.94-1.28)</td>
-<td style="text-align: left;">0.98 (0.75-1.29)</td>
-<td style="text-align: left;">0.125</td>
+<td style="text-align: left;">1.10 (0.94-1.29)</td>
+<td style="text-align: left;">0.99 (0.76-1.31)</td>
+<td style="text-align: left;">0.129</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Highest income quartile (vs lowest)</td>
-<td style="text-align: left;">0.91 (0.78-1.06)</td>
-<td style="text-align: left;">0.86 (0.74-0.99)</td>
+<td style="text-align: left;">0.91 (0.78-1.05)</td>
+<td style="text-align: left;">0.85 (0.74-0.99)</td>
 <td style="text-align: left;">0.91 (0.75-1.09)</td>
-<td style="text-align: left;">0.71 (0.51-1.00)</td>
-<td style="text-align: left;">0.148</td>
+<td style="text-align: left;">0.69 (0.49-0.97)</td>
+<td style="text-align: left;">0.145</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Age (per year)</td>
 <td style="text-align: left;">1.00 (0.99-1.01)</td>
-<td style="text-align: left;">0.99 (0.99-1.00)</td>
+<td style="text-align: left;">0.99 (0.98-1.00)</td>
 <td style="text-align: left;">1.00 (0.99-1.01)</td>
 <td style="text-align: left;">0.99 (0.98-1.00)</td>
-<td style="text-align: left;">0.438</td>
+<td style="text-align: left;">0.423</td>
 </tr>
 </tbody>
 </table>
@@ -5800,46 +5808,46 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bleeding complication</td>
-<td style="text-align: left;">1.24 (1.05-1.48)</td>
-<td style="text-align: left;">1.01 (0.75-1.36)</td>
+<td style="text-align: left;">Bleeding complication composite</td>
+<td style="text-align: left;">1.23 (1.03-1.46)</td>
+<td style="text-align: left;">1.00 (0.74-1.35)</td>
 <td style="text-align: left;">0.419</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Infectious complication</td>
-<td style="text-align: left;">0.99 (0.88-1.12)</td>
-<td style="text-align: left;">1.42 (1.16-1.72)</td>
-<td style="text-align: left;">0.026</td>
+<td style="text-align: left;">Infectious complication composite</td>
+<td style="text-align: left;">0.99 (0.88-1.11)</td>
+<td style="text-align: left;">1.40 (1.15-1.71)</td>
+<td style="text-align: left;">0.030</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Renal complication</td>
-<td style="text-align: left;">1.35 (1.25-1.46)</td>
-<td style="text-align: left;">1.36 (1.18-1.58)</td>
-<td style="text-align: left;">0.479</td>
+<td style="text-align: left;">Renal complication composite</td>
+<td style="text-align: left;">1.34 (1.24-1.45)</td>
+<td style="text-align: left;">1.36 (1.18-1.57)</td>
+<td style="text-align: left;">0.414</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Congestive heart failure</td>
-<td style="text-align: left;">1.22 (1.14-1.31)</td>
-<td style="text-align: left;">1.38 (1.22-1.56)</td>
-<td style="text-align: left;">0.154</td>
+<td style="text-align: left;">1.21 (1.13-1.30)</td>
+<td style="text-align: left;">1.37 (1.22-1.55)</td>
+<td style="text-align: left;">0.136</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Chronic kidney disease</td>
-<td style="text-align: left;">1.10 (1.01-1.19)</td>
-<td style="text-align: left;">1.11 (0.95-1.30)</td>
-<td style="text-align: left;">0.690</td>
+<td style="text-align: left;">1.10 (1.02-1.19)</td>
+<td style="text-align: left;">1.12 (0.96-1.31)</td>
+<td style="text-align: left;">0.596</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Highest income quartile (vs lowest)</td>
-<td style="text-align: left;">0.87 (0.78-0.96)</td>
-<td style="text-align: left;">0.92 (0.76-1.11)</td>
-<td style="text-align: left;">0.546</td>
+<td style="text-align: left;">0.86 (0.78-0.96)</td>
+<td style="text-align: left;">0.91 (0.75-1.11)</td>
+<td style="text-align: left;">0.535</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Age (per year)</td>
 <td style="text-align: left;">1.00 (0.99-1.00)</td>
 <td style="text-align: left;">1.00 (0.99-1.00)</td>
-<td style="text-align: left;">0.279</td>
+<td style="text-align: left;">0.252</td>
 </tr>
 </tbody>
 </table>
@@ -5847,13 +5855,14 @@ window.Quarto = {
 </section>
 <section id="table-7-sensitivity-analyses" class="level2">
 <h2 class="anchored" data-anchor-id="table-7-sensitivity-analyses">Table 7 — Sensitivity Analyses</h2>
+<p>Row S7 contains the adjusted odds ratios for the two narrow single-code exposures (postprocedural haemorrhage or haematoma; postprocedural infection, <code>T81.4x</code>). These are the corrected counterparts of the withdrawn v1 hazard ratios. They do not appear in Tables 4, 4b, 4c or 4d, which report the composites only.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Table 7. Pre-specified sensitivity analyses.</caption>
 <colgroup>
-<col style="width: 19%">
-<col style="width: 80%">
+<col style="width: 28%">
+<col style="width: 72%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -5868,27 +5877,27 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;">S2. Isolated CABG only</td>
-<td style="text-align: left;">n = 47,946; rate 12.5% (12.2-12.9); bleeding complication OR 1.08 (0.91-1.28); infectious complication OR 1.12 (1.00-1.25).</td>
+<td style="text-align: left;">n = 47,946; rate 12.5% (12.2-12.9); bleeding complication composite OR 1.06 (0.90-1.25); infectious complication composite OR 1.11 (0.99-1.24).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">S3. Elective index admissions only</td>
-<td style="text-align: left;">n = 25,465; rate 11.8% (11.3-12.3); bleeding complication OR 1.43 (1.14-1.80); infectious complication OR 1.08 (0.91-1.29).</td>
+<td style="text-align: left;">n = 25,465; rate 11.8% (11.3-12.3); bleeding complication composite OR 1.43 (1.14-1.79); infectious complication composite OR 1.08 (0.91-1.29).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">S4. Unplanned readmission as outcome</td>
-<td style="text-align: left;">n = 55,303; rate 12.1% (11.8-12.5); bleeding complication OR 1.14 (0.98-1.33); infectious complication OR 1.04 (0.94-1.16).</td>
+<td style="text-align: left;">n = 55,303; rate 12.1% (11.8-12.5); bleeding complication composite OR 1.13 (0.97-1.31); infectious complication composite OR 1.04 (0.93-1.15).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">S5. Income quartile x payer interaction</td>
-<td style="text-align: left;">Interaction p = 0.584 – no evidence that the income association differs by payer.</td>
+<td style="text-align: left;">Interaction p = 0.595 – no evidence that the income association differs by payer.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">S6. Obesity class from Z68 BMI codes only</td>
-<td style="text-align: left;">n = 43,782; rate 13.0% (12.6-13.4); class III vs I OR 1.43 (1.32-1.55).</td>
+<td style="text-align: left;">n = 43,782; rate 13.0% (12.6-13.4); class III vs I OR 1.42 (1.31-1.55).</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">S7. v1 exposures (bleeding, infection) under the corrected model</td>
-<td style="text-align: left;">Postoperative bleeding OR 1.11 (0.91-1.35) (p = 0.302); postoperative infection OR 1.40 (1.08-1.82) (p = 0.012). Compare with the withdrawn v1 hazard ratios of 1.34 and 0.67, which were estimated among readmitted patients only.</td>
+<td style="text-align: left;">S7. Narrow v1 exposures under the corrected model: postprocedural haemorrhage or haematoma (v1 bleeding definition) and postprocedural infection (T81.4x)</td>
+<td style="text-align: left;">Postprocedural haemorrhage or haematoma, v1 bleeding definition: OR 1.11 (0.91-1.35) (p = 0.302); postprocedural infection (T81.4x): OR 1.40 (1.08-1.82) (p = 0.012). These are NARROW single-code exposures and are not the same variables as the bleeding and infectious complication COMPOSITES of Table 4, which additionally contain tamponade, sepsis, pneumonia, mediastinitis and wound disruption.</td>
 </tr>
 </tbody>
 </table>
@@ -5907,15 +5916,15 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Highest vs lowest income quartile, adjusted</td>
-<td style="text-align: left;">OR 0.87 (0.80-0.96)</td>
+<td style="text-align: left;">OR 0.87 (0.80-0.95)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Income quartile, joint design-based Wald test</td>
-<td style="text-align: left;">p = 0.028</td>
+<td style="text-align: left;">p = 0.024</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Income quartile x primary payer interaction</td>
-<td style="text-align: left;">p = 0.584</td>
+<td style="text-align: left;">p = 0.595</td>
 </tr>
 </tbody>
 </table>
@@ -5937,9 +5946,9 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">cabg_typeCABG + valve</td>
-<td style="text-align: right;">1.24</td>
-<td style="text-align: right;">1.14</td>
-<td style="text-align: right;">1.36</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">1.34</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="even">
@@ -5947,48 +5956,48 @@ window.Quarto = {
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.94</td>
 <td style="text-align: right;">1.06</td>
-<td style="text-align: left;">0.952</td>
+<td style="text-align: left;">0.978</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">n_vessels3</td>
-<td style="text-align: right;">0.95</td>
-<td style="text-align: right;">0.88</td>
-<td style="text-align: right;">1.03</td>
-<td style="text-align: left;">0.232</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: left;">0.286</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">n_vessels4 or more</td>
 <td style="text-align: right;">1.05</td>
-<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.95</td>
 <td style="text-align: right;">1.17</td>
-<td style="text-align: left;">0.414</td>
+<td style="text-align: left;">0.346</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">pump_statusOff-pump (no CPB code)</td>
 <td style="text-align: right;">0.99</td>
 <td style="text-align: right;">0.93</td>
 <td style="text-align: right;">1.06</td>
-<td style="text-align: left;">0.749</td>
+<td style="text-align: left;">0.810</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">obesity_classClass II (BMI 35-39.9)</td>
-<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">1.15</td>
 <td style="text-align: right;">1.06</td>
-<td style="text-align: right;">1.26</td>
+<td style="text-align: right;">1.25</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">obesity_classClass III (BMI &gt;= 40)</td>
 <td style="text-align: right;">1.33</td>
-<td style="text-align: right;">1.25</td>
-<td style="text-align: right;">1.43</td>
+<td style="text-align: right;">1.24</td>
+<td style="text-align: right;">1.42</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">obesity_classUnspecified</td>
 <td style="text-align: right;">1.16</td>
 <td style="text-align: right;">1.06</td>
-<td style="text-align: right;">1.26</td>
+<td style="text-align: right;">1.25</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -5996,18 +6005,18 @@ window.Quarto = {
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.99</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: left;">0.135</td>
+<td style="text-align: left;">0.044</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">FEMALEFemale</td>
-<td style="text-align: right;">1.30</td>
-<td style="text-align: right;">1.23</td>
-<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">1.31</td>
+<td style="text-align: right;">1.24</td>
+<td style="text-align: right;">1.38</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">PAY1Medicaid</td>
-<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">1.44</td>
 <td style="text-align: right;">1.31</td>
 <td style="text-align: right;">1.59</td>
 <td style="text-align: left;">&lt;0.001</td>
@@ -6022,29 +6031,29 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;">PAY1Other/self-pay</td>
 <td style="text-align: right;">1.15</td>
-<td style="text-align: right;">1.01</td>
-<td style="text-align: right;">1.30</td>
-<td style="text-align: left;">0.033</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">1.31</td>
+<td style="text-align: left;">0.028</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ZIPINC_QRTL26th to 50th percentile</td>
 <td style="text-align: right;">0.98</td>
 <td style="text-align: right;">0.92</td>
 <td style="text-align: right;">1.04</td>
-<td style="text-align: left;">0.514</td>
+<td style="text-align: left;">0.494</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ZIPINC_QRTL51st to 75th percentile</td>
 <td style="text-align: right;">0.93</td>
 <td style="text-align: right;">0.86</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: left;">0.037</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: left;">0.035</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ZIPINC_QRTL76th to 100th percentile</td>
 <td style="text-align: right;">0.88</td>
 <td style="text-align: right;">0.81</td>
-<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.95</td>
 <td style="text-align: left;">0.002</td>
 </tr>
 <tr class="odd">
@@ -6052,26 +6061,26 @@ window.Quarto = {
 <td style="text-align: right;">0.92</td>
 <td style="text-align: right;">0.76</td>
 <td style="text-align: right;">1.12</td>
-<td style="text-align: left;">0.425</td>
+<td style="text-align: left;">0.416</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AWEEKENDWeekend (Sat-Sun)</td>
 <td style="text-align: right;">1.01</td>
 <td style="text-align: right;">0.94</td>
-<td style="text-align: right;">1.08</td>
-<td style="text-align: left;">0.842</td>
+<td style="text-align: right;">1.09</td>
+<td style="text-align: left;">0.697</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Admission_TypeNon-elective</td>
-<td style="text-align: right;">1.09</td>
-<td style="text-align: right;">1.02</td>
-<td style="text-align: right;">1.16</td>
-<td style="text-align: left;">0.008</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">1.19</td>
+<td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">HOSP_BEDSIZELarge</td>
 <td style="text-align: right;">0.89</td>
-<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.82</td>
 <td style="text-align: right;">0.97</td>
 <td style="text-align: left;">0.007</td>
 </tr>
@@ -6087,25 +6096,25 @@ window.Quarto = {
 <td style="text-align: right;">0.94</td>
 <td style="text-align: right;">0.88</td>
 <td style="text-align: right;">1.01</td>
-<td style="text-align: left;">0.074</td>
+<td style="text-align: left;">0.072</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">HOSP_UR_TEACHNon-metropolitan</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.82</td>
 <td style="text-align: right;">1.22</td>
-<td style="text-align: left;">0.960</td>
+<td style="text-align: left;">0.987</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">YEAR2017</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.95</td>
 <td style="text-align: right;">1.06</td>
-<td style="text-align: left;">0.980</td>
+<td style="text-align: left;">0.977</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_dmYes</td>
-<td style="text-align: right;">1.18</td>
+<td style="text-align: right;">1.19</td>
 <td style="text-align: right;">1.12</td>
 <td style="text-align: right;">1.25</td>
 <td style="text-align: left;">&lt;0.001</td>
@@ -6115,20 +6124,20 @@ window.Quarto = {
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.90</td>
 <td style="text-align: right;">1.11</td>
-<td style="text-align: left;">0.992</td>
+<td style="text-align: left;">0.989</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_dyslipidemiaYes</td>
-<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.88</td>
 <td style="text-align: right;">0.82</td>
 <td style="text-align: right;">0.93</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_chfYes</td>
-<td style="text-align: right;">1.23</td>
-<td style="text-align: right;">1.16</td>
-<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">1.22</td>
+<td style="text-align: right;">1.15</td>
+<td style="text-align: right;">1.29</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -6136,7 +6145,7 @@ window.Quarto = {
 <td style="text-align: right;">0.98</td>
 <td style="text-align: right;">0.92</td>
 <td style="text-align: right;">1.04</td>
-<td style="text-align: left;">0.536</td>
+<td style="text-align: left;">0.484</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_prior_strokeYes</td>
@@ -6150,27 +6159,27 @@ window.Quarto = {
 <td style="text-align: right;">0.96</td>
 <td style="text-align: right;">0.89</td>
 <td style="text-align: right;">1.04</td>
-<td style="text-align: left;">0.370</td>
+<td style="text-align: left;">0.321</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_pvdYes</td>
 <td style="text-align: right;">1.11</td>
-<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.03</td>
 <td style="text-align: right;">1.20</td>
 <td style="text-align: left;">0.004</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_ckd_nonesrdYes</td>
-<td style="text-align: right;">1.09</td>
-<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">1.03</td>
 <td style="text-align: right;">1.17</td>
-<td style="text-align: left;">0.008</td>
+<td style="text-align: left;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_esrdYes</td>
 <td style="text-align: right;">1.50</td>
 <td style="text-align: right;">1.33</td>
-<td style="text-align: right;">1.69</td>
+<td style="text-align: right;">1.70</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
@@ -6185,91 +6194,91 @@ window.Quarto = {
 <td style="text-align: right;">1.09</td>
 <td style="text-align: right;">1.03</td>
 <td style="text-align: right;">1.16</td>
-<td style="text-align: left;">0.003</td>
+<td style="text-align: left;">0.004</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_pulm_htnYes</td>
-<td style="text-align: right;">1.14</td>
-<td style="text-align: right;">1.05</td>
-<td style="text-align: right;">1.24</td>
-<td style="text-align: left;">0.002</td>
+<td style="text-align: right;">1.13</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: left;">0.004</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_anemiaYes</td>
 <td style="text-align: right;">1.08</td>
 <td style="text-align: right;">1.02</td>
 <td style="text-align: right;">1.14</td>
-<td style="text-align: left;">0.010</td>
+<td style="text-align: left;">0.013</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_coagulopathyYes</td>
 <td style="text-align: right;">1.08</td>
-<td style="text-align: right;">0.96</td>
-<td style="text-align: right;">1.22</td>
-<td style="text-align: left;">0.192</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">1.21</td>
+<td style="text-align: left;">0.243</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_liverYes</td>
-<td style="text-align: right;">1.16</td>
-<td style="text-align: right;">1.03</td>
-<td style="text-align: right;">1.30</td>
-<td style="text-align: left;">0.017</td>
+<td style="text-align: right;">1.15</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">1.29</td>
+<td style="text-align: left;">0.025</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">is_smokingYes</td>
-<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.94</td>
 <td style="text-align: right;">0.87</td>
-<td style="text-align: right;">0.99</td>
-<td style="text-align: left;">0.035</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">0.058</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">is_depressionYes</td>
 <td style="text-align: right;">1.02</td>
 <td style="text-align: right;">0.95</td>
 <td style="text-align: right;">1.11</td>
-<td style="text-align: left;">0.567</td>
+<td style="text-align: left;">0.574</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_bleedingYes</td>
-<td style="text-align: right;">1.18</td>
-<td style="text-align: right;">1.03</td>
-<td style="text-align: right;">1.35</td>
-<td style="text-align: left;">0.017</td>
+<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: left;">0.030</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_infectiousYes</td>
-<td style="text-align: right;">1.05</td>
-<td style="text-align: right;">0.96</td>
-<td style="text-align: right;">1.15</td>
-<td style="text-align: left;">0.300</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">1.14</td>
+<td style="text-align: left;">0.355</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_cardiacYes</td>
-<td style="text-align: right;">1.14</td>
-<td style="text-align: right;">1.07</td>
 <td style="text-align: right;">1.22</td>
+<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">1.29</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_renalYes</td>
-<td style="text-align: right;">1.32</td>
-<td style="text-align: right;">1.24</td>
+<td style="text-align: right;">1.31</td>
+<td style="text-align: right;">1.23</td>
 <td style="text-align: right;">1.40</td>
 <td style="text-align: left;">&lt;0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">comp_pulmonaryYes</td>
-<td style="text-align: right;">1.11</td>
-<td style="text-align: right;">1.05</td>
-<td style="text-align: right;">1.18</td>
-<td style="text-align: left;">&lt;0.001</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: left;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">comp_neuroYes</td>
-<td style="text-align: right;">1.20</td>
-<td style="text-align: right;">1.05</td>
-<td style="text-align: right;">1.37</td>
-<td style="text-align: left;">0.009</td>
+<td style="text-align: right;">1.19</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.36</td>
+<td style="text-align: left;">0.013</td>
 </tr>
 </tbody>
 </table>
